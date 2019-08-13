@@ -1,4 +1,4 @@
-
+<?php require 'db.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- BEGIN HEAD -->
@@ -75,11 +75,27 @@ unset( $_SESSION['adminmessage'] );
                                     <form action="" method=POST id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
                                         <div class="form-body">
                                         <div class="form-group row">
+                                                <label class="control-label col-md-3">Id
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">
+                                                    <input type="text" name="order_id" placeholder="enter order name" class="form-control input-height" required/> </div>
+                                           
+										   </div>
+                                        <div class="form-group row">
                                                 <label class="control-label col-md-3">Number
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="text" name="Order_name" placeholder="enter order name" class="form-control input-height" required/> </div>
+                                                    <input type="text" name="number" placeholder="enter order name" class="form-control input-height" required/> </div>
+                                           
+										   </div>
+                                           <div class="form-group row">
+                                                <label class="control-label col-md-3">Purchase Order
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">
+                                                    <input type="text" name="purchase_order_id" placeholder="enter order name" class="form-control input-height" required/> </div>
                                            
 										   </div>
                                             <div class="form-group row">
@@ -87,7 +103,7 @@ unset( $_SESSION['adminmessage'] );
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="text" name="Order_code" placeholder="enter order date" class="form-control input-height" /> </div>
+                                                    <input type="date" name="creation_date" placeholder="enter order date" class="form-control input-height" /> </div>
                                          
 											</div>
 											</div>
@@ -96,7 +112,7 @@ unset( $_SESSION['adminmessage'] );
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <textarea name="Order_description" placeholder="order details" class="form-control-textarea" rows="5" ></textarea>
+                                                    <textarea name="description" placeholder="order details" class="form-control-textarea" rows="5" ></textarea>
                                                 </div>
                                             
 											</div>
@@ -118,64 +134,30 @@ unset( $_SESSION['adminmessage'] );
             </div>
             <!-- end page content -->
             
-          <?php
+            <?php
 if(isset($_POST['submit'])){
 	
-	if( empty($_POST['Order_name']) || empty($_POST['Order_code']) || empty($_POST['Order_description'])) {
-		$_SESSION['adminmessage']= " <div class='alert alert-danger'>
-        <strong>Woah!</strong> Fill out all the information please.
-                    </div>";
-		 header("location:add_Order.php");
-	}else{
-		
-		$result = $mysqli->query("SELECT * FROM tb_Order WHERE Order_code='$_POST[Order_code]'");
-		   
-			if ( $result->num_rows > 0  ){ // User doesn't exist
+$id = $mysqli->escape_string($_POST['order_id']);
+$number = $mysqli->escape_string($_POST['number']);
+$purchase_order_id = $mysqli->escape_string($_POST['purchase_order_id']);
+$creation_date = $mysqli->escape_string($_POST['creation_date']);
+$description = $mysqli->escape_string($_POST['description']);
 
-	 $_SESSION['adminmessage']= " <div class='alert alert-danger'>
-        <strong>Woah!</strong> This Order code has already been used.
-                    </div>";
-	header("location: add_Order.php");
+	
+// active is 0 by DEFAULT (no need to include it here)
+    $sql = "INSERT INTO orderr (order_id,number,purchase_order_id,creation_date, description) " 
+            . "VALUES ('$id','$number','$purchase_order_id','$creation_date','$description')";
+echo $sql;
+}
+
+
+if ( $mysqli->query($sql) ){
+
+    echo "Successfully.";
 }
 else{
-$Order_name = $mysqli->escape_string($_POST['Order_name']);
-$Order_code = $mysqli->escape_string($_POST['Order_code']);
-$Order_description = $mysqli->escape_string($_POST['Order_description']);
-
- $date=  date("Y-m-d"); 
- 
- if ($_FILES['image']['tmp_name'] == "")
-	{
-			$filepath="images/user.png";
-	}
-	else
-	{
-		$filetemp=$_FILES['image']['tmp_name'];
-		$filename=$_FILES['image']['name'];
-		$filetype=$_FILES['image']['type'];
-		$filepath="images/".$filename;
-	    move_uploaded_file($filetemp,$filepath);
-	}
-	
-	$code = substr(md5(uniqid(mt_rand(), true)) , 0, 8);
-// active is 0 by DEFAULT (no need to include it here)
-    $sql = "INSERT INTO tb_Order (Order_name,Order_code,Order_description,image,date) " 
-            . "VALUES ('$Order_name','$Order_code','$Order_description','$filepath','$date')";
-echo $sql;
-    // Add user to the database
-    if ( $mysqli->query($sql) ){
-		$_SESSION['adminmessage']= " <div class='alert alert-success'>
-        <strong>Well done!</strong> You successfully updated the Order, it will be appear on the website.
-                    </div>";
-		 header("location:all_Orders.php");
-	}
-else {
-   $_SESSION['adminmessage']= " <div class='alert alert-danger'>
-        <strong>Warning!</strong> You weren't successful in updating the Order.
-                    </div>";
-header("location:all_Orders.php");
-    }
-}}}
+    echo "Something went wrong. Please try again later.";
+}
 ?>
         <!-- end page container -->
         <!-- start footer -->

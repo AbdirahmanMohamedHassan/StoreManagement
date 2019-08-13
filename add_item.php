@@ -1,4 +1,5 @@
 
+<?php require 'db.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- BEGIN HEAD -->
@@ -65,37 +66,39 @@
                             <div class="card card-box">
                                                           						
                                 <div class="card-body" id="bar-parent">
-								<?php 
-   if( isset($_SESSION['adminmessage']) AND !empty($_SESSION['adminmessage']) ){
-        echo $_SESSION['adminmessage'];  
-unset( $_SESSION['adminmessage'] );		
-	}
 
-?>  
                                     <form action="" method=POST id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
                                         <div class="form-body">
+                                        <div class="form-group row">
+                                                <label class="control-label col-md-3">Id
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">
+                                                    <input type="number" name="item_id" placeholder="enter item id" class="form-control input-height" required/> </div>
+                                           
+										   </div>
                                         <div class="form-group row">
                                                 <label class="control-label col-md-3">Item Name
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="text" name="Item_name" placeholder="enter Item name" class="form-control input-height" required/> </div>
+                                                    <input type="text" name="name" placeholder="enter item name" class="form-control input-height" required/> </div>
                                            
 										   </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-md-3">Category
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">
+                                                    <input type="number" name="category_id" placeholder="enter item category" class="form-control input-height" /> </div>
+                                         
+											</div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Quantity
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="text" name="Item_code" placeholder="enter Item code" class="form-control input-height" /> </div>
-                                         
-											</div>
-                                            <div class="form-group row">
-                                                <label class="control-label col-md-3">Amount
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-5">
-                                                <input type="text" name="Item_code" placeholder="enter Item code" class="form-control input-height" /> </div>
+                                                <input type="number" name="quantity" placeholder="enter item quantity" class="form-control input-height" /> </div>
                                              </div>
                                             
 											</div>
@@ -104,7 +107,7 @@ unset( $_SESSION['adminmessage'] );
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <textarea name="Item_description" placeholder="Item details" class="form-control-textarea" rows="5" ></textarea>
+                                                    <textarea name="description" placeholder="Item details" class="form-control-textarea" rows="5" ></textarea>
                                                 </div>
                                             
 											</div>
@@ -129,61 +132,27 @@ unset( $_SESSION['adminmessage'] );
           <?php
 if(isset($_POST['submit'])){
 	
-	if( empty($_POST['Item_name']) || empty($_POST['Item_code']) || empty($_POST['Item_description'])) {
-		$_SESSION['adminmessage']= " <div class='alert alert-danger'>
-        <strong>Woah!</strong> Fill out all the information please.
-                    </div>";
-		 header("location:add_Item.php");
-	}else{
-		
-		$result = $mysqli->query("SELECT * FROM tb_Item WHERE Item_code='$_POST[Item_code]'");
-		   
-			if ( $result->num_rows > 0  ){ // User doesn't exist
+$id = $mysqli->escape_string($_POST['item_id']);
+$name = $mysqli->escape_string($_POST['name']);
+$category = $mysqli->escape_string($_POST['category_id']);
+$quantity = $mysqli->escape_string($_POST['quantity']);
+$description = $mysqli->escape_string($_POST['description']);
 
-	 $_SESSION['adminmessage']= " <div class='alert alert-danger'>
-        <strong>Woah!</strong> This Item code has already been used.
-                    </div>";
-	header("location: add_Item.php");
-}
-else{
-$Item_name = $mysqli->escape_string($_POST['Item_name']);
-$Item_code = $mysqli->escape_string($_POST['Item_code']);
-$Item_description = $mysqli->escape_string($_POST['Item_description']);
-
- $date=  date("Y-m-d"); 
- 
- if ($_FILES['image']['tmp_name'] == "")
-	{
-			$filepath="images/user.png";
-	}
-	else
-	{
-		$filetemp=$_FILES['image']['tmp_name'];
-		$filename=$_FILES['image']['name'];
-		$filetype=$_FILES['image']['type'];
-		$filepath="images/".$filename;
-	    move_uploaded_file($filetemp,$filepath);
-	}
 	
 	$code = substr(md5(uniqid(mt_rand(), true)) , 0, 8);
 // active is 0 by DEFAULT (no need to include it here)
-    $sql = "INSERT INTO tb_Item (Item_name,Item_code,Item_description,image,date) " 
-            . "VALUES ('$Item_name','$Item_code','$Item_description','$filepath','$date')";
-echo $sql;
-    // Add user to the database
-    if ( $mysqli->query($sql) ){
-		$_SESSION['adminmessage']= " <div class='alert alert-success'>
-        <strong>Well done!</strong> You successfully updated the Item, it will be appear on the website.
-                    </div>";
-		 header("location:all_Items.php");
-	}
-else {
-   $_SESSION['adminmessage']= " <div class='alert alert-danger'>
-        <strong>Warning!</strong> You weren't successful in updating the Item.
-                    </div>";
-header("location:all_Items.php");
-    }
-}}}
+    $sql = "INSERT INTO item (item_id,name,quantity,description,category_id) " 
+            . "VALUES ('$id','$name','$quantity','$description','$category')";
+
+}
+
+if ( $mysqli->query($sql) ){
+
+    echo "Successfully.";
+}
+else{
+    echo "Something went wrong. Please try again later.";
+}
 ?>
         <!-- end page container -->
         <!-- start footer -->

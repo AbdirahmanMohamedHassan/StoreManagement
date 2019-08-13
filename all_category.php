@@ -1,3 +1,5 @@
+<?php require 'db.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <!-- BEGIN HEAD -->
@@ -111,7 +113,6 @@
 					                                    <table class="table table-striped table-bordered table-hover table-checkable order-column valign-middle" id="example4">
 					                                        <thead>
 					                                            <tr>
-					                                                <th> No </th>
 					                                                <th> Id </th>
 					                                                <th> Name </th>
 					                                                <th> Type </th>
@@ -120,23 +121,46 @@
 					                                            </tr>
 					                                        </thead>
 					                                        <tbody>
+															<?php
+						
+						$sql = "SELECT category_id, name, type, description FROM category";
+						$result = $conn->query($sql);
+						if ($result->num_rows > 0) {
+							while($row = $result->fetch_assoc()) {
+						?>
 																<tr class="odd gradeX">
-																	<td class="left">18</td>
-																	<td>Rajesh Bhatt</td>
-																	<td class="left">Mechanical</td>
-																	<td><a href="tel:4444565756">
-																			4444565756 </a></td>
-																	<td><a href="mailto:shuxer@gmail.com">
-																			rajesh@gmail.com </a></td>
+																<td class="left"><?php echo$row["category_id"] ?></td>
+																	<td class="left"><?php echo$row["name"] ?></td>
+																	<td class="left"><?php echo$row["type"] ?></td>
+																		<td class="left"><?php echo$row["description"] ?></td>
 																	<td>
-																		<a href="edit_professor.html" class="btn btn-primary btn-xs">
-																			<i class="fa fa-pencil"></i>
-																		</a>
-																		<button class="btn btn-danger btn-xs">
+															
+																				<i > <a href="edit_category.php?category_id=<?php echo$row["category_id"] ?>"><button type="button" href="edit_item.php" class="fa fa-pencil"></button></a>	</i>
+																		<form action="" method=POST>
+																		<button class="btn btn-danger btn-xs" value="<?php echo $row["category_id"] ?>" type="submit"  name="delete">
+																		
 																			<i class="fa fa-trash-o "></i>
 																		</button>
+																		</form>
 																	</td>
 																</tr>
+																<?php }}else if ($result->num_rows == 0) {echo "<center><h2>no items a valiabe</h2></center>";}?>
+																<?php if(isset($_POST['delete'])){
+										$id = $mysqli->escape_string($_POST['delete']);
+	
+	$result = $mysqli->query("SELECT * FROM item WHERE category_id='$id'") or die($mysqli->error());
+
+$sql = "delete from category WHERE category_id='$id' ";						
+
+   if ( $mysqli->query($sql) ){
+		 echo "successfuly deleted";
+	}
+else {
+
+echo "not deleted";
+    }
+	
+										}?>
 															</tbody>
 					                                    </table>
 					                                    </div>
@@ -145,565 +169,13 @@
 					                        </div>
 					                    </div>
                                     </div>
-                                    <div class="tab-pane" id="tab2">
-                                        <div class="row">
-					                        <div class="col-md-4">
-				                                <div class="card card-box">
-				                                    <div class="card-body no-padding ">
-				                                    	<div class="doctor-profile">
-				                                                <img src="../assets/img/std/std10.jpg" class="doctor-pic" alt=""> 
-					                                        <div class="profile-usertitle">
-					                                            <div class="doctor-name">Pooja Patel </div>
-					                                            <div class="name-center"> Science </div>
-					                                        </div>
-				                                                <p>A-103, shyam gokul flats, Mahatma Road <br />Mumbai</p> 
-				                                                <div><p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">  (123)456-7890</a></p> </div>
-					                                        <div class="profile-userbuttons">
-					                                            <a href="professor_profile.html" class="btn btn-circle deepPink-bgcolor btn-sm">Read More</a>
-					                                        </div>
-				                                        </div>
-				                                    </div>
-				                                </div>
-					                        </div>
-					                        <div class="col-md-4">
-				                                <div class="card card-box">
-				                                    <div class="card-body no-padding ">
-				                                    	<div class="doctor-profile">
-				                                                <img src="../assets/img/std/std1.jpg" class="doctor-pic" alt=""> 
-					                                        <div class="profile-usertitle">
-					                                            <div class="doctor-name">Rajesh </div>
-					                                            <div class="name-center"> Mathematics </div>
-					                                        </div>
-				                                                <p>45, Krishna Tower, Near Bus Stop, Satellite, <br />Mumbai</p> 
-				                                                <div><p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">  (123)456-7890</a></p> </div>
-					                                        <div class="profile-userbuttons">
-					                                             <a href="professor_profile.html" class="btn btn-circle deepPink-bgcolor btn-sm">Read More</a>
-					                                        </div>
-				                                        </div>
-				                                    </div>
-				                                </div>
-					                        </div>
-					                        <div class="col-md-4">
-				                                <div class="card card-box">
-				                                    <div class="card-body no-padding ">
-				                                    	<div class="doctor-profile">
-				                                                <img src="../assets/img/std/std2.jpg" class="doctor-pic" alt=""> 
-					                                        <div class="profile-usertitle">
-					                                            <div class="doctor-name">Sarah Smith </div>
-					                                            <div class="name-center"> Commerce </div>
-					                                        </div>
-				                                                <p>456, Estern evenue, Courtage area, <br />New York</p> 
-				                                                <div><p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">  (123)456-7890</a></p> </div>
-					                                        <div class="profile-userbuttons">
-					                                             <a href="professor_profile.html" class="btn btn-circle deepPink-bgcolor btn-sm">Read More</a>
-					                                        </div>
-				                                        </div>
-				                                    </div>
-				                                </div>
-					                        </div>
-                    					</div>
-                    					<div class="row">
-					                        <div class="col-md-4">
-				                                <div class="card card-box">
-				                                    <div class="card-body no-padding ">
-				                                    	<div class="doctor-profile">
-				                                                <img src="../assets/img/std/std3.jpg" class="doctor-pic" alt=""> 
-					                                        <div class="profile-usertitle">
-					                                            <div class="doctor-name">John Deo </div>
-					                                            <div class="name-center"> Arts </div>
-					                                        </div>
-				                                                <p>A-103, shyam gokul flats, Mahatma Road <br />Mumbai</p> 
-				                                                <div><p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">  (123)456-7890</a></p> </div>
-					                                        <div class="profile-userbuttons">
-					                                             <a href="professor_profile.html" class="btn btn-circle deepPink-bgcolor btn-sm">Read More</a>
-					                                        </div>
-				                                        </div>
-				                                    </div>
-				                                </div>
-					                        </div>
-					                        <div class="col-md-4">
-				                                <div class="card card-box">
-				                                    <div class="card-body no-padding ">
-				                                    	<div class="doctor-profile">
-				                                                <img src="../assets/img/std/std4.jpg" class="doctor-pic" alt=""> 
-					                                        <div class="profile-usertitle">
-					                                            <div class="doctor-name">Jay Soni </div>
-					                                            <div class="name-center"> M.B.A. </div>
-					                                        </div>
-				                                                <p>45, Krishna Tower, Near Bus Stop, Satellite, <br />Mumbai</p> 
-				                                                <div><p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">  (123)456-7890</a></p> </div>
-					                                        <div class="profile-userbuttons">
-					                                             <a href="professor_profile.html" class="btn btn-circle deepPink-bgcolor btn-sm">Read More</a>
-					                                        </div>
-				                                        </div>
-				                                    </div>
-				                                </div>
-					                        </div>
-					                        <div class="col-md-4">
-				                                <div class="card card-box">
-				                                    <div class="card-body no-padding ">
-				                                    	<div class="doctor-profile">
-				                                                <img src="../assets/img/std/std5.jpg" class="doctor-pic" alt=""> 
-					                                        <div class="profile-usertitle">
-					                                            <div class="doctor-name">Jacob Ryan </div>
-					                                            <div class="name-center"> Urology </div>
-					                                        </div>
-				                                                <p>456, Estern evenue, Courtage area, <br />New York</p> 
-				                                                <div><p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">  (123)456-7890</a></p> </div>
-					                                        <div class="profile-userbuttons">
-					                                             <a href="professor_profile.html" class="btn btn-circle deepPink-bgcolor btn-sm">Read More</a>
-					                                        </div>
-				                                        </div>
-				                                    </div>
-				                                </div>
-					                        </div>
-                    					</div>
-                    					<div class="row">
-					                        <div class="col-md-4">
-				                                <div class="card card-box">
-				                                    <div class="card-body no-padding ">
-				                                    	<div class="doctor-profile">
-				                                                <img src="../assets/img/std/std6.jpg" class="doctor-pic" alt=""> 
-					                                        <div class="profile-usertitle">
-					                                            <div class="doctor-name">Megha Trivedi </div>
-					                                            <div class="name-center"> Electrical </div>
-					                                        </div>
-				                                                <p>A-103, shyam gokul flats, Mahatma Road <br />Mumbai</p> 
-				                                                <div><p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">  (123)456-7890</a></p> </div>
-					                                        <div class="profile-userbuttons">
-					                                             <a href="professor_profile.html" class="btn btn-circle deepPink-bgcolor btn-sm">Read More</a>
-					                                        </div>
-				                                        </div>
-				                                    </div>
-				                                </div>
-					                        </div>
-					                        <div class="col-md-4">
-				                                <div class="card card-box">
-				                                    <div class="card-body no-padding ">
-				                                    	<div class="doctor-profile">
-				                                                <img src="../assets/img/std/std1.jpg" class="doctor-pic" alt=""> 
-					                                        <div class="profile-usertitle">
-					                                            <div class="doctor-name">Rajesh </div>
-					                                            <div class="name-center"> Mathematics </div>
-					                                        </div>
-				                                                <p>45, Krishna Tower, Near Bus Stop, Satellite, <br />Mumbai</p> 
-				                                                <div><p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">  (123)456-7890</a></p> </div>
-					                                        <div class="profile-userbuttons">
-					                                             <a href="professor_profile.html" class="btn btn-circle deepPink-bgcolor btn-sm">Read More</a>
-					                                        </div>
-				                                        </div>
-				                                    </div>
-				                                </div>
-					                        </div>
-					                        <div class="col-md-4">
-				                                <div class="card card-box">
-				                                    <div class="card-body no-padding ">
-				                                    	<div class="doctor-profile">
-				                                                <img src="../assets/img/std/std2.jpg" class="doctor-pic" alt=""> 
-					                                        <div class="profile-usertitle">
-					                                            <div class="doctor-name">Sarah Smith </div>
-					                                            <div class="name-center"> Commerce </div>
-					                                        </div>
-				                                                <p>456, Estern evenue, Courtage area, <br />New York</p> 
-				                                                <div><p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">  (123)456-7890</a></p> </div>
-					                                        <div class="profile-userbuttons">
-					                                             <a href="professor_profile.html" class="btn btn-circle deepPink-bgcolor btn-sm">Read More</a>
-					                                        </div>
-				                                        </div>
-				                                    </div>
-				                                </div>
-					                        </div>
-                    					</div>
-                    					<div class="row">
-					                        <div class="col-md-4">
-				                                <div class="card card-box">
-				                                    <div class="card-body no-padding ">
-				                                    	<div class="doctor-profile">
-				                                                <img src="../assets/img/std/std10.jpg" class="doctor-pic" alt=""> 
-					                                        <div class="profile-usertitle">
-					                                            <div class="doctor-name">Pooja Patel </div>
-					                                            <div class="name-center"> Science </div>
-					                                        </div>
-				                                                <p>A-103, shyam gokul flats, Mahatma Road <br />Mumbai</p> 
-				                                                <div><p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">  (123)456-7890</a></p> </div>
-					                                        <div class="profile-userbuttons">
-					                                             <a href="professor_profile.html" class="btn btn-circle deepPink-bgcolor btn-sm">Read More</a>
-					                                        </div>
-				                                        </div>
-				                                    </div>
-				                                </div>
-					                        </div>
-					                        <div class="col-md-4">
-				                                <div class="card card-box">
-				                                    <div class="card-body no-padding ">
-				                                    	<div class="doctor-profile">
-				                                                <img src="../assets/img/std/std1.jpg" class="doctor-pic" alt=""> 
-					                                        <div class="profile-usertitle">
-					                                            <div class="doctor-name">Rajesh </div>
-					                                            <div class="name-center"> Mathematics </div>
-					                                        </div>
-				                                                <p>45, Krishna Tower, Near Bus Stop, Satellite, <br />Mumbai</p> 
-				                                                <div><p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">  (123)456-7890</a></p> </div>
-					                                        <div class="profile-userbuttons">
-					                                             <a href="professor_profile.html" class="btn btn-circle deepPink-bgcolor btn-sm">Read More</a>
-					                                        </div>
-				                                        </div>
-				                                    </div>
-				                                </div>
-					                        </div>
-					                        <div class="col-md-4">
-				                                <div class="card card-box">
-				                                    <div class="card-body no-padding ">
-				                                    	<div class="doctor-profile">
-				                                                <img src="../assets/img/std/std3.jpg" class="doctor-pic" alt=""> 
-					                                        <div class="profile-usertitle">
-					                                            <div class="doctor-name">John Deo </div>
-					                                            <div class="name-center"> Arts </div>
-					                                        </div>
-				                                                <p>A-103, shyam gokul flats, Mahatma Road <br />Mumbai</p> 
-				                                                <div><p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">  (123)456-7890</a></p> </div>
-					                                        <div class="profile-userbuttons">
-					                                             <a href="professor_profile.html" class="btn btn-circle deepPink-bgcolor btn-sm">Read More</a>
-					                                        </div>
-				                                        </div>
-				                                    </div>
-				                                </div>
-					                        </div>
-                    					</div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- end page content -->
-            <!-- start chat sidebar -->
-            <div class="chat-sidebar-container" data-close-on-body-click="false">
-                <div class="chat-sidebar">
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                            <a href="#quick_sidebar_tab_1" class="nav-link active tab-icon"  data-toggle="tab"> <i class="material-icons">chat</i>Chat
-                                    <span class="badge badge-danger">4</span>
-                                </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#quick_sidebar_tab_3" class="nav-link tab-icon"  data-toggle="tab"> <i class="material-icons">settings</i> Settings
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <!-- Start User Chat --> 
- 						<div class="tab-pane active chat-sidebar-chat in active show" role="tabpanel" id="quick_sidebar_tab_1">
-                        	<div class="chat-sidebar-list">
-	                            <div class="chat-sidebar-chat-users slimscroll-style" data-rail-color="#ddd" data-wrapper-class="chat-sidebar-list">
-	                                <div class="chat-header"><h5 class="list-heading">Online</h5></div>
-	                                <ul class="media-list list-items">
-	                                    <li class="media"><img class="media-object" src="../assets/img/prof/prof3.jpg" width="35" height="35" alt="...">
-	                                        <i class="online dot"></i>
-	                                        <div class="media-body">
-	                                            <h5 class="media-heading">John Deo</h5>
-	                                            <div class="media-heading-sub">Spine Surgeon</div>
-	                                        </div>
-	                                    </li>
-	                                    <li class="media">
-	                                        <div class="media-status">
-	                                            <span class="badge badge-success">5</span>
-	                                        </div> <img class="media-object" src="../assets/img/prof/prof1.jpg" width="35" height="35" alt="...">
-	                                        <i class="busy dot"></i>
-	                                        <div class="media-body">
-	                                            <h5 class="media-heading">Rajesh</h5>
-	                                            <div class="media-heading-sub">Director</div>
-	                                        </div>
-	                                    </li>
-	                                    <li class="media"><img class="media-object" src="../assets/img/prof/prof5.jpg" width="35" height="35" alt="...">
-	                                        <i class="away dot"></i>
-	                                        <div class="media-body">
-	                                            <h5 class="media-heading">Jacob Ryan</h5>
-	                                            <div class="media-heading-sub">Ortho Surgeon</div>
-	                                        </div>
-	                                    </li>
-	                                    <li class="media">
-	                                        <div class="media-status">
-	                                            <span class="badge badge-danger">8</span>
-	                                        </div> <img class="media-object" src="../assets/img/prof/prof4.jpg" width="35" height="35" alt="...">
-	                                        <i class="online dot"></i>
-	                                        <div class="media-body">
-	                                            <h5 class="media-heading">Kehn Anderson</h5>
-	                                            <div class="media-heading-sub">CEO</div>
-	                                        </div>
-	                                    </li>
-	                                    <li class="media"><img class="media-object" src="../assets/img/prof/prof2.jpg" width="35" height="35" alt="...">
-	                                        <i class="busy dot"></i>
-	                                        <div class="media-body">
-	                                            <h5 class="media-heading">Sarah Smith</h5>
-	                                            <div class="media-heading-sub">Commerce</div>
-	                                        </div>
-	                                    </li>
-	                                    <li class="media"><img class="media-object" src="../assets/img/prof/prof7.jpg" width="35" height="35" alt="...">
-	                                        <i class="online dot"></i>
-	                                        <div class="media-body">
-	                                            <h5 class="media-heading">Vlad Cardella</h5>
-	                                            <div class="media-heading-sub">Civil</div>
-	                                        </div>
-	                                    </li>
-	                                </ul>
-	                                <div class="chat-header"><h5 class="list-heading">Offline</h5></div>
-	                                <ul class="media-list list-items">
-	                                    <li class="media">
-	                                        <div class="media-status">
-	                                            <span class="badge badge-warning">4</span>
-	                                        </div> <img class="media-object" src="../assets/img/prof/prof6.jpg" width="35" height="35" alt="...">
-	                                        <i class="offline dot"></i>
-	                                        <div class="media-body">
-	                                            <h5 class="media-heading">Jennifer Maklen</h5>
-	                                            <div class="media-heading-sub">Engineering</div>
-	                                            <div class="media-heading-small">Last seen 01:20 AM</div>
-	                                        </div>
-	                                    </li>
-	                                    <li class="media"><img class="media-object" src="../assets/img/prof/prof8.jpg" width="35" height="35" alt="...">
-	                                        <i class="offline dot"></i>
-	                                        <div class="media-body">
-	                                            <h5 class="media-heading">Lina Smith</h5>
-	                                            <div class="media-heading-sub">Science</div>
-	                                            <div class="media-heading-small">Last seen 11:14 PM</div>
-	                                        </div>
-	                                    </li>
-	                                    <li class="media">
-	                                        <div class="media-status">
-	                                            <span class="badge badge-success">9</span>
-	                                        </div> <img class="media-object" src="../assets/img/prof/prof9.jpg" width="35" height="35" alt="...">
-	                                        <i class="offline dot"></i>
-	                                        <div class="media-body">
-	                                            <h5 class="media-heading">Jeff Adam</h5>
-	                                            <div class="media-heading-sub">Music</div>
-	                                            <div class="media-heading-small">Last seen 3:31 PM</div>
-	                                        </div>
-	                                    </li>
-	                                    <li class="media"><img class="media-object" src="../assets/img/prof/prof10.jpg" width="35" height="35" alt="...">
-	                                        <i class="offline dot"></i>
-	                                        <div class="media-body">
-	                                            <h5 class="media-heading">Anjelina Cardella</h5>
-	                                            <div class="media-heading-sub">Physiotherapist</div>
-	                                            <div class="media-heading-small">Last seen 7:45 PM</div>
-	                                        </div>
-	                                    </li>
-	                                </ul>
-	                            </div>
-                            </div>
-                            <div class="chat-sidebar-item">
-                                <div class="chat-sidebar-chat-user">
-                                    <div class="page-quick-sidemenu">
-                                        <a href="javascript:;" class="chat-sidebar-back-to-list">
-                                            <i class="fa fa-angle-double-left"></i>Back
-                                        </a>
-                                    </div>
-                                    <div class="chat-sidebar-chat-user-messages">
-                                        <div class="post out">
-                                            <img class="avatar" alt="" src="../assets/img/dp.jpg" />
-                                            <div class="message">
-                                                <span class="arrow"></span> <a href="javascript:;" class="name">Kiran Patel</a> <span class="datetime">9:10</span>
-                                                <span class="body-out"> could you send me menu icons ? </span>
-                                            </div>
-                                        </div>
-                                        <div class="post in">
-                                            <img class="avatar" alt="" src="../assets/img/prof/prof5.jpg" />
-                                            <div class="message">
-                                                <span class="arrow"></span> <a href="javascript:;" class="name">Jacob Ryan</a> <span class="datetime">9:10</span>
-                                                <span class="body"> please give me 10 minutes. </span>
-                                            </div>
-                                        </div>
-                                        <div class="post out">
-                                            <img class="avatar" alt="" src="../assets/img/dp.jpg" />
-                                            <div class="message">
-                                                <span class="arrow"></span> <a href="javascript:;" class="name">Kiran Patel</a> <span class="datetime">9:11</span>
-                                                <span class="body-out"> ok fine :) </span>
-                                            </div>
-                                        </div>
-                                        <div class="post in">
-                                            <img class="avatar" alt="" src="../assets/img/prof/prof5.jpg" />
-                                            <div class="message">
-                                                <span class="arrow"></span> <a href="javascript:;" class="name">Jacob Ryan</a> <span class="datetime">9:22</span>
-                                                <span class="body">Sorry for
-													the delay. i sent mail to you. let me know if it is ok or not.</span>
-                                            </div>
-                                        </div>
-                                        <div class="post out">
-                                            <img class="avatar" alt="" src="../assets/img/dp.jpg" />
-                                            <div class="message">
-                                                <span class="arrow"></span> <a href="javascript:;" class="name">Kiran Patel</a> <span class="datetime">9:26</span>
-                                                <span class="body-out"> it is perfect! :) </span>
-                                            </div>
-                                        </div>
-                                        <div class="post out">
-                                            <img class="avatar" alt="" src="../assets/img/dp.jpg" />
-                                            <div class="message">
-                                                <span class="arrow"></span> <a href="javascript:;" class="name">Kiran Patel</a> <span class="datetime">9:26</span>
-                                                <span class="body-out"> Great! Thanks. </span>
-                                            </div>
-                                        </div>
-                                        <div class="post in">
-                                            <img class="avatar" alt="" src="../assets/img/prof/prof5.jpg" />
-                                            <div class="message">
-                                                <span class="arrow"></span> <a href="javascript:;" class="name">Jacob Ryan</a> <span class="datetime">9:27</span>
-                                                <span class="body"> it is my pleasure :) </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="chat-sidebar-chat-user-form">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Type a message here...">
-                                            <div class="input-group-btn">
-                                                <button type="button" class="btn deepPink-bgcolor">
-                                                    <i class="fa fa-arrow-right"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End User Chat --> 
- 						<!-- Start Setting Panel --> 
- 						<div class="tab-pane chat-sidebar-settings" role="tabpanel" id="quick_sidebar_tab_3">
-                            <div class="chat-sidebar-settings-list slimscroll-style">
-                                <div class="chat-header"><h5 class="list-heading">Layout Settings</h5></div>
-	                            <div class="chatpane inner-content ">
-									<div class="settings-list">
-					                    <div class="setting-item">
-					                        <div class="setting-text">Sidebar Position</div>
-					                        <div class="setting-set">
-					                           <select class="sidebar-pos-option form-control input-inline input-sm input-small ">
-	                                                <option value="left" selected="selected">Left</option>
-	                                                <option value="right">Right</option>
-                                            	</select>
-					                        </div>
-					                    </div>
-					                    <div class="setting-item">
-					                        <div class="setting-text">Header</div>
-					                        <div class="setting-set">
-					                           <select class="page-header-option form-control input-inline input-sm input-small ">
-	                                                <option value="fixed" selected="selected">Fixed</option>
-	                                                <option value="default">Default</option>
-                                            	</select>
-					                        </div>
-					                    </div>
-					                    <div class="setting-item">
-					                        <div class="setting-text">Sidebar Menu </div>
-					                        <div class="setting-set">
-					                           <select class="sidebar-menu-option form-control input-inline input-sm input-small ">
-	                                                <option value="accordion" selected="selected">Accordion</option>
-	                                                <option value="hover">Hover</option>
-                                            	</select>
-					                        </div>
-					                    </div>
-					                    <div class="setting-item">
-					                        <div class="setting-text">Footer</div>
-					                        <div class="setting-set">
-					                           <select class="page-footer-option form-control input-inline input-sm input-small ">
-	                                                <option value="fixed">Fixed</option>
-	                                                <option value="default" selected="selected">Default</option>
-                                            	</select>
-					                        </div>
-					                    </div>
-					                </div>
-									<div class="chat-header"><h5 class="list-heading">Account Settings</h5></div>
-									<div class="settings-list">
-					                    <div class="setting-item">
-					                        <div class="setting-text">Notifications</div>
-					                        <div class="setting-set">
-					                            <div class="switch">
-					                                <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect" 
-									                  for = "switch-1">
-									                  <input type = "checkbox" id = "switch-1" 
-									                     class = "mdl-switch__input" checked>
-									               	</label>
-					                            </div>
-					                        </div>
-					                    </div>
-					                    <div class="setting-item">
-					                        <div class="setting-text">Show Online</div>
-					                        <div class="setting-set">
-					                            <div class="switch">
-					                                <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect" 
-									                  for = "switch-7">
-									                  <input type = "checkbox" id = "switch-7" 
-									                     class = "mdl-switch__input" checked>
-									               	</label>
-					                            </div>
-					                        </div>
-					                    </div>
-					                    <div class="setting-item">
-					                        <div class="setting-text">Status</div>
-					                        <div class="setting-set">
-					                            <div class="switch">
-					                                <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect" 
-									                  for = "switch-2">
-									                  <input type = "checkbox" id = "switch-2" 
-									                     class = "mdl-switch__input" checked>
-									               	</label>
-					                            </div>
-					                        </div>
-					                    </div>
-					                    <div class="setting-item">
-					                        <div class="setting-text">2 Steps Verification</div>
-					                        <div class="setting-set">
-					                            <div class="switch">
-					                                <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect" 
-									                  for = "switch-3">
-									                  <input type = "checkbox" id = "switch-3" 
-									                     class = "mdl-switch__input" checked>
-									               	</label>
-					                            </div>
-					                        </div>
-					                    </div>
-					                </div>
-                                    <div class="chat-header"><h5 class="list-heading">General Settings</h5></div>
-                                    <div class="settings-list">
-					                    <div class="setting-item">
-					                        <div class="setting-text">Location</div>
-					                        <div class="setting-set">
-					                            <div class="switch">
-					                                <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect" 
-									                  for = "switch-4">
-									                  <input type = "checkbox" id = "switch-4" 
-									                     class = "mdl-switch__input" checked>
-									               	</label>
-					                            </div>
-					                        </div>
-					                    </div>
-					                    <div class="setting-item">
-					                        <div class="setting-text">Save Histry</div>
-					                        <div class="setting-set">
-					                            <div class="switch">
-					                                <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect" 
-									                  for = "switch-5">
-									                  <input type = "checkbox" id = "switch-5" 
-									                     class = "mdl-switch__input" checked>
-									               	</label>
-					                            </div>
-					                        </div>
-					                    </div>
-					                    <div class="setting-item">
-					                        <div class="setting-text">Auto Updates</div>
-					                        <div class="setting-set">
-					                            <div class="switch">
-					                                <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect" 
-									                  for = "switch-6">
-									                  <input type = "checkbox" id = "switch-6" 
-									                     class = "mdl-switch__input" checked>
-									               	</label>
-					                            </div>
-					                        </div>
-					                    </div>
-					                </div>
-	                        	</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- end chat sidebar -->
+           
         </div>
         <!-- end page container -->
         <!-- start footer -->

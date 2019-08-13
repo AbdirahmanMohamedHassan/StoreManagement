@@ -1,22 +1,5 @@
 <?php require 'db.php'; 
-ob_start();
-session_start();
 
-if(!isset($_SESSION["username"])){
-		 $_SESSION['loginfirst']= " <div class='alert alert-danger'>
-        <strong>Woah!</strong> Please login first.
-                    </div>";
-		 header("location:login.php");
-}
-$result = $mysqli->query("SELECT * FROM tb_course WHERE course_code='$_GET[course_code]' and certificate_code='$_GET[certificate]'");
-		   
-			if ( $result->num_rows == 0  ){ // User doesn't exist
-
-	 $_SESSION['adminmessage']= " <div class='alert alert-danger'>
-        <strong>Woah!</strong> Sorry wrong URL.
-                    </div>";
-	header("location: all_certificates.php");
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,14 +54,14 @@ $result = $mysqli->query("SELECT * FROM tb_course WHERE course_code='$_GET[cours
                     <div class="page-bar">
                         <div class="page-title-breadcrumb">
                             <div class=" pull-left">
-                                <div class="page-title">Edit Course</div>
+                                <div class="page-title">Edit Item</div>
                             </div>
                             <ol class="breadcrumb page-breadcrumb pull-right">
                                 <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index.php">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
                                 </li>
-                                <li><a class="parent-item" href="#">Course</a>&nbsp;<i class="fa fa-angle-right"></i>
+                                <li><a class="parent-item" href="#">Item</a>&nbsp;<i class="fa fa-angle-right"></i>
                                 </li>
-                                <li class="active">Edit Course</li>
+                                <li class="active">Edit Item</li>
                             </ol>
                         </div>
                     </div>
@@ -89,99 +72,53 @@ $result = $mysqli->query("SELECT * FROM tb_course WHERE course_code='$_GET[cours
                                 <div class="card-body" id="bar-parent">
                                     <form action="" method=POST id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
                                         <div class="form-body">
-			<?php 
-   if( isset($_SESSION['adminmessage']) AND !empty($_SESSION['adminmessage']) ){
-        echo $_SESSION['adminmessage'];  
-unset( $_SESSION['adminmessage'] );		
-	}
-
-?>  
 								 <?php
 
-$sql = "SELECT * FROM tb_course,tb_professor where tb_course.course_professor = tb_professor.professor_id and tb_course.course_code='$_GET[course_code]'";
+$sql = "SELECT item_id, name, quantity, description, category_id FROM item  WHERE item_id  ='$_GET[item_id]'";
 $result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
+
 	while($row = $result->fetch_assoc()) {
+      
 ?>
+
+
                                         <div class="form-group row">
-                                                <label class="control-label col-md-3">Course Name
+                                                <label class="control-label col-md-3">Id
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="text" name="course_name"value="<?php echo$row["course_name"] ?>" class="form-control input-height" /> </div>
+                                                    <input type="number" name="item_id" value="<?php echo$row["item_id"] ?>" class="form-control input-height"  /> </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="control-label col-md-3">Course Code
+                                                <label class="control-label col-md-3">Name
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="text" name="course_code" value="<?php echo$row["course_code"] ?>" class="form-control input-height" disabled> </div>
+                                                    <input type="text" name="name" value="<?php echo$row["name"] ?>" class="form-control input-height" /> </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="control-label col-md-3">Course Description
+                                                <label class="control-label col-md-3">Quantity
                                                     <span class="required"> * </span>
                                                 </label>
-                                                <div class="col-md-5">
-                                                    <textarea id="summernote" style="tabsize:2;height:100" name="course_description" placeholder="course details" rows="5" ><?php echo$row["course_description"] ?></textarea>
-                                               
-												</div>
+                                                <div class="col-md-5">     
+                                                <input type="number" name="quantity" value="<?php echo$row["quantity"] ?>" class="form-control input-height" /> </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-md-3">Category
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">     
+                                                <input type="number" name="category_id" value="<?php echo$row["category_id"] ?>" class="form-control input-height" /> </div>
                                             </div>
 											  <div class="form-group row">
-                                                <label class="control-label col-md-3">Professor Name
-                                                    <span class="required"> * </span>
-                                                </label>
-												  <div class="col-md-5">
-												<select class="form-control input-height" name="course_professor">
-																			   <?php 
-				function pro() {
-					include ("db.php");
-    $sql = "SELECT * FROM tb_course,tb_professor where tb_course.course_code='$_GET[course_code]'";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-	while($row = $result->fetch_assoc()) {
-		?>
-                                                        <option value="<?php echo$row["professor_id"] ?>"<?php if ($row["course_professor"] == $row["professor_id"]){ echo 'selected="selected"';} ?>><?php echo$row["professor_name"] ;echo "\r\n"; echo $row["professor_last"] ?></option>
-                                                   
-		<?php
-;
-}}
-}
-?>				 
-                                              <?php pro(); ?>
-											   </select>
-                                                </div>
-                                            </div>
-											  <div class="form-group row">
-                                                <label class="control-label col-md-3">Course Duration
+                                                <label class="control-label col-md-3">Description
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="text" name="course_duration" value="<?php echo$row["course_duration"] ?>" class="form-control input-height" /> </div>
-                                            </div>
-											<div class="form-group row">
-                                                <label class="control-label col-md-3">Course Price
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-5">
-                                                    <input type="text" name="course_price" value="<?php echo$row["course_price"] ?>" class="form-control input-height" /> </div>
-                                            </div>
-											<div class="form-group row">
-                                                <label class="control-label col-md-3">Course level
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-5">
-                                                    <input type="text" name="course_level" value="<?php echo$row["course_level"] ?>" class="form-control input-height" /> </div>
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <label class="control-label col-md-3">Course Picture
-                                                </label>
-                                                <div class="compose-editor">
-												<input type="hidden" name="notselected" value="<?php echo $row['course_image'] ?>">
-                                                   <input type="file" name="image" id="fileToUpload"   class="default" multiple>
-                                              </div>
-                                            </div>
+                                                <textarea id="summernote" style="tabsize:2;height:70" name="description" placeholder="Item details" rows="5" ><?php echo$row["description"] ?></textarea>
+                                                 </div>
+                                                 </div>
 											<div class="form-actions">
                                             <div class="row">
                                                 <div class="offset-md-3 col-md-9">
@@ -190,69 +127,43 @@ if ($result->num_rows > 0) {
                                                 </div>
                                             	</div>
                                        		 </div>
-<?php }} ?>
+
 										</div>
                                     </form>
+                                    <?php }?>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- end page content -->
-            <?php
+                <?php
 if(isset($_POST['submit'])){
 	
-	if( empty($_POST['course_name']) || empty($_POST['course_description']) || empty($_POST['course_professor']) || empty($_POST['course_duration'])
-		|| empty($_POST['course_price']) || empty($_POST['course_level'])) {
-		$_SESSION['adminmessage']= " <div class='alert alert-danger'>
-        <strong>Woah!</strong> Fill out all the information please.
-                    </div>";
-		 header("location:edit_course.php?course_code=$_GET[course_code]&certificate=$_GET[certificate]");
-	}else{
-$course_name = $mysqli->escape_string($_POST['course_name']);
-$course_code = $mysqli->escape_string($_POST['course_code']);
-$course_description = $mysqli->escape_string($_POST['course_description']);
-$course_professor = $mysqli->escape_string($_POST['course_professor']);
-$course_duration = $mysqli->escape_string($_POST['course_duration']);
-$course_price = $mysqli->escape_string($_POST['course_price']);
-$course_level = $mysqli->escape_string($_POST['course_level']);
-$notselected = $mysqli->escape_string($_POST['notselected']);
-
- $date=  date("Y-m-d"); 
- 
- if ($_FILES['image']['tmp_name'] == "")
-	{
-			$filepath=$notselected;
-	}
-	else
-	{
-		$filetemp=$_FILES['image']['tmp_name'];
-		$filename=$_FILES['image']['name'];
-		$filetype=$_FILES['image']['type'];
-		$filepath="images/".$filename;
-	    move_uploaded_file($filetemp,$filepath);
-	}
 	
-// active is 0 by DEFAULT (no need to include it here)
+    $id = $mysqli->escape_string($_POST['item_id']);
+    $name = $mysqli->escape_string($_POST['name']);
+    $category = $mysqli->escape_string($_POST['category_id']);
+    $quantity = $mysqli->escape_string($_POST['quantity']);
+    $description = $mysqli->escape_string($_POST['description']);
 
-    $sql="UPDATE tb_course SET course_name='$course_name' , course_description='$course_description' , course_professor='$course_professor'
-	,course_duration='$course_duration' , course_price='$course_price' , course_level='$course_level' , course_image='$filepath' where course_code='$_GET[course_code]'";
+// active is 0 by DEFAULT (no need to include it here)
+    $sql = "UPDATE item SET item_id='$id',name= '$name' ,quantity='$quantity',description='$description',category_id='$category' WHERE item_id = '$_GET[item_id]'";
     // Add user to the database
+    echo $sql;
+}
     if ( $mysqli->query($sql) ){
-		$_SESSION['adminmessage']= " <div class='alert alert-success'>
-        <strong>Well done!</strong> You successfully updated the course information.
-                    </div>";
-		 header("location:certificate_course.php?certificate=$_GET[certificate]");
-	}
-else {
-   $_SESSION['adminmessage']= " <div class='alert alert-danger'>
-        <strong>Warning!</strong> You weren't successful in updating the course information.
-                    </div>";
-header("location:certificate_course.php?certificate=$_GET[certificate]");
-    }
-}}
+
+        echo"Records created successfully.";
+   }
+   else{
+       echo "Something went wrong. Please try again later.";
+   }
+
+
 ?>
+            </div>
+            <!-- end page content -->
+
         </div>
         <!-- end page container -->
         <!-- start footer -->

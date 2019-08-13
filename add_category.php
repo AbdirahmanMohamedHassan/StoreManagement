@@ -1,4 +1,4 @@
-
+<?php require 'db.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- BEGIN HEAD -->
@@ -65,21 +65,23 @@
                             <div class="card card-box">
                                                           						
                                 <div class="card-body" id="bar-parent">
-								<?php 
-   if( isset($_SESSION['adminmessage']) AND !empty($_SESSION['adminmessage']) ){
-        echo $_SESSION['adminmessage'];  
-unset( $_SESSION['adminmessage'] );		
-	}
-
-?>  
+ 
                                     <form action="" method=POST id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
                                         <div class="form-body">
+                                        <div class="form-group row">
+                                                <label class="control-label col-md-3">Id
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">
+                                                    <input type="text" name="category_id" placeholder="enter category id" class="form-control input-height" required/> </div>
+                                           
+										   </div>
                                         <div class="form-group row">
                                                 <label class="control-label col-md-3">Name
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="text" name="category_name" placeholder="enter category name" class="form-control input-height" required/> </div>
+                                                    <input type="text" name="name" placeholder="enter category name" class="form-control input-height" required/> </div>
                                            
 										   </div>
                                             <div class="form-group row">
@@ -87,7 +89,7 @@ unset( $_SESSION['adminmessage'] );
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="text" name="category_code" placeholder="enter category " class="form-control input-height" /> </div>
+                                                    <input type="text" name="type" placeholder="enter category type " class="form-control input-height" /> </div>
                                          
 											</div>
                                             
@@ -97,7 +99,7 @@ unset( $_SESSION['adminmessage'] );
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <textarea name="category_description" placeholder="category details" class="form-control-textarea" rows="5" ></textarea>
+                                                    <textarea name="description" placeholder="category details" class="form-control-textarea" rows="5" ></textarea>
                                                 </div>
                                             
 											</div>
@@ -119,64 +121,30 @@ unset( $_SESSION['adminmessage'] );
             </div>
             <!-- end page content -->
             
-          <?php
+          
+            <?php
 if(isset($_POST['submit'])){
 	
-	if( empty($_POST['category_name']) || empty($_POST['category_code']) || empty($_POST['category_description'])) {
-		$_SESSION['adminmessage']= " <div class='alert alert-danger'>
-        <strong>Woah!</strong> Fill out all the information please.
-                    </div>";
-		 header("location:add_category.php");
-	}else{
-		
-		$result = $mysqli->query("SELECT * FROM tb_category WHERE category_code='$_POST[category_code]'");
-		   
-			if ( $result->num_rows > 0  ){ // User doesn't exist
+    $id = $mysqli->escape_string($_POST['category_id']);
+    $name = $mysqli->escape_string($_POST['name']);
+    $type = $mysqli->escape_string($_POST['type']);
+    $description = $mysqli->escape_string($_POST['description']);
 
-	 $_SESSION['adminmessage']= " <div class='alert alert-danger'>
-        <strong>Woah!</strong> This category code has already been used.
-                    </div>";
-	header("location: add_category.php");
+// active is 0 by DEFAULT (no need to include it here)
+    $sql = "INSERT INTO category (category_id,name,type,description)" 
+            . "VALUES ('$id','$name','$type','$description')";
+            echo $sql;
+
+}
+
+
+if ( $mysqli->query($sql) ){
+
+    echo "Successfully.";
 }
 else{
-$category_name = $mysqli->escape_string($_POST['category_name']);
-$category_code = $mysqli->escape_string($_POST['category_code']);
-$category_description = $mysqli->escape_string($_POST['category_description']);
-
- $date=  date("Y-m-d"); 
- 
- if ($_FILES['image']['tmp_name'] == "")
-	{
-			$filepath="images/user.png";
-	}
-	else
-	{
-		$filetemp=$_FILES['image']['tmp_name'];
-		$filename=$_FILES['image']['name'];
-		$filetype=$_FILES['image']['type'];
-		$filepath="images/".$filename;
-	    move_uploaded_file($filetemp,$filepath);
-	}
-	
-	$code = substr(md5(uniqid(mt_rand(), true)) , 0, 8);
-// active is 0 by DEFAULT (no need to include it here)
-    $sql = "INSERT INTO tb_category (category_name,category_code,category_description,image,date) " 
-            . "VALUES ('$category_name','$category_code','$category_description','$filepath','$date')";
-echo $sql;
-    // Add user to the database
-    if ( $mysqli->query($sql) ){
-		$_SESSION['adminmessage']= " <div class='alert alert-success'>
-        <strong>Well done!</strong> You successfully updated the category, it will be appear on the website.
-                    </div>";
-		 header("location:all_categorys.php");
-	}
-else {
-   $_SESSION['adminmessage']= " <div class='alert alert-danger'>
-        <strong>Warning!</strong> You weren't successful in updating the category.
-                    </div>";
-header("location:all_categorys.php");
-    }
-}}}
+    echo "Something went wrong. Please try again later.";
+}
 ?>
         <!-- end page container -->
         <!-- start footer -->

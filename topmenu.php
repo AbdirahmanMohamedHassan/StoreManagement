@@ -4,7 +4,7 @@
                 <!-- logo start -->
                 <div class="page-logo">
                     <a href="index.php">
-                    <span class="logo-icon material-icons fa-rotate-45">school</span>
+                    <span class="logo-icon material-icons fa-rotate-45">store</span>
                     <span class="logo-default" >Store</span> </a>
                 </div>
                 <!-- logo end -->
