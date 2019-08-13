@@ -1,4 +1,4 @@
-
+<?php require 'db.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- BEGIN HEAD -->
@@ -59,28 +59,27 @@
                                 <li class="active">Add Store Request</li>
                             </ol>
                         </div>
-                    </div>
+                    </div>         
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
-                            <div class="card card-box">
-                                                          						
+                            <div class="card card-box">   						
                                 <div class="card-body" id="bar-parent">
-								<?php 
-   if( isset($_SESSION['adminmessage']) AND !empty($_SESSION['adminmessage']) ){
-        echo $_SESSION['adminmessage'];  
-unset( $_SESSION['adminmessage'] );		
-	}
-
-?>  
-
                                     <form action="" method=POST id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
                                         <div class="form-body">
                                         <div class="form-group row">
-                                                <label class="control-label col-md-3">Item Name
+                                                <label class="control-label col-md-3">Id
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="text" name="Item_name" placeholder="enter item name" class="form-control input-height" required/> </div>
+                                                    <input type="number" name="id" placeholder="enter id" class="form-control input-height" required/> </div>
+                                           
+										   </div>
+                                           <div class="form-group row">
+                                                <label class="control-label col-md-3">Item Id
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">
+                                                    <input type="number" name="item_id" placeholder="enter item name" class="form-control input-height" required/> </div>
                                            
 										   </div>
                                             <div class="form-group row">
@@ -88,31 +87,23 @@ unset( $_SESSION['adminmessage'] );
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="text" name="Item_code" placeholder="enter quantity" class="form-control input-height" /> </div>
+                                                    <input type="text" name="quantity" placeholder="enter quantity" class="form-control input-height" /> </div>
                                          
-											</div>
-                                            <div class="form-group row">
-                                                <label class="control-label col-md-3">Amount
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-5">
-                                                <input type="text" name="Item_code" placeholder="enter Amount" class="form-control input-height" /> </div>
-                                            
-											</div>
+											</div> 
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Department
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="text" name="Item_name" placeholder="enter department" class="form-control input-height" required/> </div>
-                                           
-										   </div>
+                                                <input type="text" name="department" placeholder="enter department" class="form-control input-height" /> </div>
+                                            
+											</div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Creation Date
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="text" name="Item_code" placeholder="creation date" class="form-control input-height" /> </div>
+                                                    <input type="date" name="created_date" placeholder="enter creation date" class="form-control input-height" /> </div>
                                          
 											</div>
                                             <div class="form-group row">
@@ -120,44 +111,22 @@ unset( $_SESSION['adminmessage'] );
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                <input type="text" name="Item_code" placeholder="enter requested by" class="form-control input-height" /> </div>
-                                             </div>
-                                             <div class="form-group row">
-                                                <label class="control-label col-md-3">Occupation 
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-5">
-                                                    <input type="text" name="Item_code" placeholder="enter occupation" class="form-control input-height" /> </div>
-                                         
-											</div>
-                                            <div class="form-group row">
-                                                <label class="control-label col-md-3">Date
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-5">
-                                                <input type="text" name="Item_code" placeholder="enter date" class="form-control input-height" /> </div>
+                                                <input type="text" name="requested_by" placeholder="enter requested by" class="form-control input-height" /> </div>
                                              </div>
                                              <div class="form-group row">
                                                 <label class="control-label col-md-3">Approved by
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                <input type="text" name="Item_code" placeholder="enter approved by" class="form-control input-height" /> </div>
+                                                <input type="text" name="approved_by" placeholder="enter approved by" class="form-control input-height" /> </div>
                                              </div>
-                                             <div class="form-group row">
-                                                <label class="control-label col-md-3">Occupation 
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-5">
-                                                    <input type="text" name="Item_code" placeholder="enter occupation" class="form-control input-height" /> </div>
-                                         
-											</div>
+
                                             <div class="form-group row">
-                                                <label class="control-label col-md-3">Date
+                                                <label class="control-label col-md-3">Approved Date
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                <input type="text" name="Item_code" placeholder="enter date" class="form-control input-height" /> </div>
+                                                <input type="date" name="approved_date" placeholder="enter approved date" class="form-control input-height" /> </div>
                                              </div>
                                             
                                             <div class="form-group row">
@@ -165,7 +134,7 @@ unset( $_SESSION['adminmessage'] );
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <textarea name="Item_description" placeholder="Item details" class="form-control-textarea" rows="5" ></textarea>
+                                                    <textarea name="description" placeholder="Item details" class="form-control-textarea" rows="5" ></textarea>
                                                 </div>
                                             
 											</div>
@@ -186,65 +155,33 @@ unset( $_SESSION['adminmessage'] );
                 </div>
             </div>
             <!-- end page content -->
-            
-          <?php
+            <?php
 if(isset($_POST['submit'])){
 	
-	if( empty($_POST['Item_name']) || empty($_POST['Item_code']) || empty($_POST['Item_description'])) {
-		$_SESSION['adminmessage']= " <div class='alert alert-danger'>
-        <strong>Woah!</strong> Fill out all the information please.
-                    </div>";
-		 header("location:add_Item.php");
-	}else{
-		
-		$result = $mysqli->query("SELECT * FROM tb_Item WHERE Item_code='$_POST[Item_code]'");
-		   
-			if ( $result->num_rows > 0  ){ // User doesn't exist
+    $id = $mysqli->escape_string($_POST['id']);
+    $item_id = $mysqli->escape_string($_POST['item_id']);
+    $quantity = $mysqli->escape_string($_POST['quantity']);
+    $department = $mysqli->escape_string($_POST['department']);
+    $created_date = $mysqli->escape_string($_POST['created_date']);
+    $requested_by = $mysqli->escape_string($_POST['requested_by']);
+    $approved_date = $mysqli->escape_string($_POST['approved_date']);
+    $approved_by = $mysqli->escape_string($_POST['approved_by']);
+    $description = $mysqli->escape_string($_POST['description']);
 
-	 $_SESSION['adminmessage']= " <div class='alert alert-danger'>
-        <strong>Woah!</strong> This Item code has already been used.
-                    </div>";
-	header("location: add_Item.php");
+
+// active is 0 by DEFAULT (no need to include it here)
+    $sql = "INSERT INTO store_request_form(id, item_id, quantity, department, created_date, requested_by, approved_date, approved_by, description)"
+    . "VALUES ('$id','$item_id','$quantity','$department','$created_date','$requested_by','$approved_date','$approved_by','$description')";
+  echo $sql;
+}
+
+if ( $mysqli->query($sql) ){
+
+    echo "Successfully.";
 }
 else{
-$Item_name = $mysqli->escape_string($_POST['Item_name']);
-$Item_code = $mysqli->escape_string($_POST['Item_code']);
-$Item_description = $mysqli->escape_string($_POST['Item_description']);
-
- $date=  date("Y-m-d"); 
- 
- if ($_FILES['image']['tmp_name'] == "")
-	{
-			$filepath="images/user.png";
-	}
-	else
-	{
-		$filetemp=$_FILES['image']['tmp_name'];
-		$filename=$_FILES['image']['name'];
-		$filetype=$_FILES['image']['type'];
-		$filepath="images/".$filename;
-	    move_uploaded_file($filetemp,$filepath);
-	}
-	
-	$code = substr(md5(uniqid(mt_rand(), true)) , 0, 8);
-// active is 0 by DEFAULT (no need to include it here)
-    $sql = "INSERT INTO tb_Item (Item_name,Item_code,Item_description,image,date) " 
-            . "VALUES ('$Item_name','$Item_code','$Item_description','$filepath','$date')";
-echo $sql;
-    // Add user to the database
-    if ( $mysqli->query($sql) ){
-		$_SESSION['adminmessage']= " <div class='alert alert-success'>
-        <strong>Well done!</strong> You successfully updated the Item, it will be appear on the website.
-                    </div>";
-		 header("location:all_Items.php");
-	}
-else {
-   $_SESSION['adminmessage']= " <div class='alert alert-danger'>
-        <strong>Warning!</strong> You weren't successful in updating the Item.
-                    </div>";
-header("location:all_Items.php");
-    }
-}}}
+    echo "Something went wrong. Please try again later.";
+}
 ?>
         <!-- end page container -->
         <!-- start footer -->

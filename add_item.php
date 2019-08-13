@@ -139,12 +139,12 @@ $quantity = $mysqli->escape_string($_POST['quantity']);
 $description = $mysqli->escape_string($_POST['description']);
 
 	
-	$code = substr(md5(uniqid(mt_rand(), true)) , 0, 8);
 // active is 0 by DEFAULT (no need to include it here)
     $sql = "INSERT INTO item (item_id,name,quantity,description,category_id) " 
             . "VALUES ('$id','$name','$quantity','$description','$category')";
 
 }
+
 
 if ( $mysqli->query($sql) ){
 
