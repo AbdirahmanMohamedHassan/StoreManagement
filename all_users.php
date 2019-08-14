@@ -50,14 +50,14 @@
                     <div class="page-bar">
                         <div class="page-title-breadcrumb">
                             <div class=" pull-left">
-                                <div class="page-title">All Purchase Order</div>
+                                <div class="page-title">All Users</div>
                             </div>
                             <ol class="breadcrumb page-breadcrumb pull-right">
                                 <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index.php">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
                                 </li>
                                 <li><a class="parent-item" href="#">Items</a>&nbsp;<i class="fa fa-angle-right"></i>
                                 </li>
-                                <li class="active">All Purchase Order</li>
+                                <li class="active">All Users</li>
                             </ol>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
 					                        <div class="col-md-12">
 					                            <div class="card card-box">
 					                                <div class="card-head">
-					                                    <header>All Purchase Order</header>
+					                                    <header>All Users</header>
 					                                    <div class="tools">
 					                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
 						                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
@@ -81,7 +81,7 @@
 					                                    <div class="row">
 					                                        <div class="col-md-6 col-sm-6 col-6">
 					                                            <div class="btn-group">
-					                                                <a href="add_purchase_order.php" id="addRow" class="btn btn-info">
+					                                                <a href="add_user.php" id="addRow" class="btn btn-info">
 					                                                    Add New <i class="fa fa-plus"></i>
 					                                                </a>
 					                                            </div>
@@ -113,50 +113,36 @@
 					                                        <thead>
 					                                            <tr>
 																	<th> Id </th>
-																	<th> Item Id </th>
-					                                                <th> Vendor </th>
-                                                                    <th> Unit Price</th>
-																	<th> quantity </th>
-																	<th> Total</th>
-																	<th> amount </th>
-                                                                    <th> Created date</th>
-																	<th> Pre By Name </th>
-																	<th> Pre By Title</th>
-																	<th> Appr By Name </th>
-																	<th> Appr By Title</th>
-																	<th> Aouthor By Name </th>
-																	<th> Author By Title</th>
+					                                                <th> User Name </th>
+                                                                    <th> Password</th>
+																	<th> Full Name </th>
+																	<th> Department</th>
+                                                                    <th> Phone</th>
+																	<th> Address </th>
 					                                                <th> Action </th>
 					                                            </tr>
 					                                        </thead>
 					                                        <tbody>
 															<?php
 						
-						$sql = "SELECT `purchase_order_id`, `vendor`, `unit_price`, `quantity`, `total`, `amount`, `created_date`, `pre_by_name`, `pre_by_title`, `appr_by_name`, `appr_by_title`, `author_by_name`, `author_by_title`, `item_id` FROM `purchase_order`";
+						$sql = "SELECT id, user_name, password, full_name, department, phone, address FROM user";
 						$result = $conn->query($sql);
 						if ($result->num_rows > 0) {
 							while($row = $result->fetch_assoc()) {
 						?>
 																<tr class="odd gradeX">
-																<td class="left"><?php echo$row["purchase_order_id"] ?></td>
-																<td class="left"><?php echo$row["item_id"] ?></td>
-																	<td class="left"><?php echo$row["vendor"] ?></td>
-																	<td><?php echo$row["unit_price"] ?></td>
-																	<td class="left"><?php echo$row["quantity"] ?></td>
-																	<td class="left"><?php echo$row["total"] ?></td>
-																	<td class="left"><?php echo$row["amount"] ?></td>
-																	<td><?php echo$row["created_date"] ?></td>
-																	<td class="left"><?php echo$row["pre_by_name"] ?></td>
-																	<td class="left"><?php echo$row["pre_by_title"] ?></td>
-																	<td class="left"><?php echo$row["appr_by_name"] ?></td>
-																	<td class="left"><?php echo$row["appr_by_title"] ?></td>
-																	<td class="left"><?php echo$row["author_by_name"] ?></td>
-																	<td class="left"><?php echo$row["author_by_title"] ?></td>
+																<td class="left"><?php echo$row["id"] ?></td>
+																	<td class="left"><?php echo$row["user_name"] ?></td>
+																	<td><?php echo$row["password"] ?></td>
+																	<td class="left"><?php echo$row["full_name"] ?></td>
+																	<td class="left"><?php echo$row["department"] ?></td>
+                                                                    <td class="left"><?php echo$row["phone"] ?></td>
+																	<td class="left"><?php echo$row["address"] ?></td>
 																	<td>
 															
-																				<i > <a href="edit_purchase_order.php?purchase_order_id=<?php echo$row["purchase_order_id"] ?>"><button type="button" href="edit_item.php" class="fa fa-pencil"></button></a>	</i>
+																				<i > <a href="edit_user.php?id=<?php echo$row["id"] ?>"><button type="button" href="edit_item.php" class="fa fa-pencil"></button></a>	</i>
 																		<form action="" method=POST>
-																		<button class="btn btn-danger btn-xs" value="<?php echo $row["purchase_order_id"] ?>" type="submit"  name="delete">
+																		<button class="btn btn-danger btn-xs" value="<?php echo $row["id"] ?>" type="submit"  name="delete">
 																		
 																			<i class="fa fa-trash-o "></i>
 																		</button>
@@ -167,9 +153,9 @@
 																<?php if(isset($_POST['delete'])){
 										$id = $mysqli->escape_string($_POST['delete']);
 	
-	$result = $mysqli->query("SELECT * FROM purchase_order WHERE purchase_order_id='$id'") or die($mysqli->error());
+	$result = $mysqli->query("SELECT * FROM user WHERE id='$id'") or die($mysqli->error());
 
-$sql = "delete from item WHERE purchase_order_id='$id' ";						
+$sql = "delete from user WHERE id='$id' ";						
 
    if ( $mysqli->query($sql) ){
 		 echo "successfuly deleted";

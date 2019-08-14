@@ -1,4 +1,4 @@
-
+<?php require 'db.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- BEGIN HEAD -->
@@ -73,31 +73,113 @@ unset( $_SESSION['adminmessage'] );
 
 ?>  
                                     <form action="" method=POST id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
-                                        <div class="form-body">
-                                        <div class="form-group row">
-                                                <label class="control-label col-md-3">Number
+
+                                    <div class="form-group row">
+                                                <label class="control-label col-md-3">Id
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="text" name="Order_name" placeholder="enter order name" class="form-control input-height" required/> </div>
-                                           
-										   </div>
+                                                    <input type="number" name="purchase_order_id" placeholder="enter purchase order id" class="form-control input-height"  /> </div>
+                                            </div>
                                             <div class="form-group row">
-                                                <label class="control-label col-md-3">Creation Date
+                                                <label class="control-label col-md-3">Item Id
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="text" name="Order_code" placeholder="enter order date" class="form-control input-height" /> </div>
-                                         
-											</div>
-											</div>
+                                                    <input type="number" name="item_id" placeholder="enter item id" class="form-control input-height"  /> </div>
+                                            </div>
                                             <div class="form-group row">
+                                                <label class="control-label col-md-3">Vendor
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">
+                                                    <input type="text" name="vendor" placeholder=" enter vendor" class="form-control input-height" /> </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-md-3">created_date
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">     
+                                                <input type="date" name="created_date" placeholder=" enter created date" class="form-control input-height" /> </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-md-3">Unit Price
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">     
+                                                <input type="text" name="unit_price" placeholder=" enter unit price" class="form-control input-height" /> </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-md-3">Quantity
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">     
+                                                <input type="number" name="quantity" placeholder=" enter quantity" class="form-control input-height" /> </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-md-3">Total
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">
+                                                    <input type="number" name="total" placeholder=" enter total" class="form-control input-height"  /> </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-md-3">Amount
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">
+                                                    <input type="number" name="amount" placeholder=" enter amount" class="form-control input-height" /> </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-md-3">pre By Name
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">     
+                                                <input type="text" name="pre_by_name" placeholder=" enter prepared by name" class="form-control input-height" /> </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-md-3">pre By title
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">     
+                                                <input type="text" name="pre_by_title" placeholder=" enter prepaed by title" class="form-control input-height" /> </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-md-3">Appr By Name
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">     
+                                                <input type="text" name="appr_by_name" placeholder=" enter approved by name" class="form-control input-height" /> </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-md-3">Appr By Title
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">     
+                                                <input type="text" name="appr_by_title" placeholder="approved by title"  class="form-control input-height" /> </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-md-3"> Author By Name
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">     
+                                                <input type="text" name="author_by_name" placeholder="author by name" class="form-control input-height" /> </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-md-3">Author By title
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">     
+                                                <input type="text" name="author_by_title" placeholder="author by title" class="form-control input-height" /> </div>
+                                            </div>
+											  <div class="form-group row">
                                                 <label class="control-label col-md-3">Description
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <textarea name="Order_description" placeholder="order details" class="form-control-textarea" rows="5" ></textarea>
-                                                </div>
+                                                <textarea id="summernote" style="tabsize:2;height:70" name="description" placeholder="Item details" rows="5" ></textarea>
+                                                 </div>
+                                                 </div>
                                             
 											</div>
 											<div class="form-actions">
@@ -118,64 +200,40 @@ unset( $_SESSION['adminmessage'] );
             </div>
             <!-- end page content -->
             
-          <?php
+            <?php
 if(isset($_POST['submit'])){
 	
-	if( empty($_POST['Order_name']) || empty($_POST['Order_code']) || empty($_POST['Order_description'])) {
-		$_SESSION['adminmessage']= " <div class='alert alert-danger'>
-        <strong>Woah!</strong> Fill out all the information please.
-                    </div>";
-		 header("location:add_Order.php");
-	}else{
-		
-		$result = $mysqli->query("SELECT * FROM tb_Order WHERE Order_code='$_POST[Order_code]'");
-		   
-			if ( $result->num_rows > 0  ){ // User doesn't exist
+    $purchase_order_id = $mysqli->escape_string($_POST['purchase_order_id']);
+    $item_id = $mysqli->escape_string($_POST['item_id']);
+    $vendor = $mysqli->escape_string($_POST['vendor']);
+    $unit_price = $mysqli->escape_string($_POST['unit_price']);
+    $quantity = $mysqli->escape_string($_POST['quantity']);
+    $total = $mysqli->escape_string($_POST['total']);
+    $amount = $mysqli->escape_string($_POST['amount']);
+    $created_date = $mysqli->escape_string($_POST['created_date']);
+    $pre_by_name = $mysqli->escape_string($_POST['pre_by_name']);
+    $pre_by_title = $mysqli->escape_string($_POST['pre_by_title']);
+    $appr_by_name = $mysqli->escape_string($_POST['appr_by_name']);
+    $appr_by_title = $mysqli->escape_string($_POST['appr_by_title']);
+    $author_by_name = $mysqli->escape_string($_POST['author_by_name']);
+    $author_by_title = $mysqli->escape_string($_POST['author_by_title']); 
+    $description = $mysqli->escape_string($_POST['description']);
 
-	 $_SESSION['adminmessage']= " <div class='alert alert-danger'>
-        <strong>Woah!</strong> This Order code has already been used.
-                    </div>";
-	header("location: add_Order.php");
+	
+// active is 0 by DEFAULT (no need to include it here)
+    $sql = "INSERT INTO purchase_order (purchase_order_id, item_id vendor, unit_price, quantity, total, amount, created_date, pre_by_name, pre_by_title, appr_by_name, appr_by_title, author_by_name, author_by_title, description ) " 
+            . "VALUES ('$purchase_order_id','$item_id','$vendor','$unit_price','$quantity','$total','$amount','$created_date','$pre_by_name','$pre_by_title','$appr_by_name'.'$appr_by_title','$author_by_name','$author_by_title','$description')";
+  
+}
+
+
+if ( $mysqli->query($sql) ){
+
+    echo "Successfully.";
 }
 else{
-$Order_name = $mysqli->escape_string($_POST['Order_name']);
-$Order_code = $mysqli->escape_string($_POST['Order_code']);
-$Order_description = $mysqli->escape_string($_POST['Order_description']);
-
- $date=  date("Y-m-d"); 
- 
- if ($_FILES['image']['tmp_name'] == "")
-	{
-			$filepath="images/user.png";
-	}
-	else
-	{
-		$filetemp=$_FILES['image']['tmp_name'];
-		$filename=$_FILES['image']['name'];
-		$filetype=$_FILES['image']['type'];
-		$filepath="images/".$filename;
-	    move_uploaded_file($filetemp,$filepath);
-	}
-	
-	$code = substr(md5(uniqid(mt_rand(), true)) , 0, 8);
-// active is 0 by DEFAULT (no need to include it here)
-    $sql = "INSERT INTO tb_Order (Order_name,Order_code,Order_description,image,date) " 
-            . "VALUES ('$Order_name','$Order_code','$Order_description','$filepath','$date')";
-echo $sql;
-    // Add user to the database
-    if ( $mysqli->query($sql) ){
-		$_SESSION['adminmessage']= " <div class='alert alert-success'>
-        <strong>Well done!</strong> You successfully updated the Order, it will be appear on the website.
-                    </div>";
-		 header("location:all_Orders.php");
-	}
-else {
-   $_SESSION['adminmessage']= " <div class='alert alert-danger'>
-        <strong>Warning!</strong> You weren't successful in updating the Order.
-                    </div>";
-header("location:all_Orders.php");
-    }
-}}}
+    echo "Something went wrong. Please try again later.";
+}
 ?>
         <!-- end page container -->
         <!-- start footer -->
