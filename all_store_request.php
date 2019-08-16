@@ -8,7 +8,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta name="description" content="Responsive Admin Template" />
     
-    <title>SIOS | Admin Panel</title>
+    <title>SMS | Admin Panel</title>
     <!-- google font -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
 	<!-- icons -->
@@ -128,7 +128,7 @@
 					                                        <tbody>
 															<?php
 						
-						$sql = "SELECT id, quantity, department, created_date, requested_by, approved_date, approved_by, description, item_id FROM store_request_form ";
+						$sql = "SELECT id, quantity, department, created_date, requested_by, approved_date, approved_by, description, item_id FROM store_request ";
 						$result = $conn->query($sql);
 						if ($result->num_rows > 0) {
 							while($row = $result->fetch_assoc()) {
@@ -159,9 +159,9 @@
 																<?php if(isset($_POST['delete'])){
 										$id = $mysqli->escape_string($_POST['delete']);
 	
-	$result = $mysqli->query("SELECT * FROM store_request_form WHERE id='$id'") or die($mysqli->error());
+	$result = $mysqli->query("SELECT * FROM store_request WHERE id='$id'") or die($mysqli->error());
 
-$sql = "delete from store_request_form WHERE id='$id' ";						
+$sql = "delete from store_request WHERE id='$id' ";						
 
    if ( $mysqli->query($sql) ){
 		 echo "successfuly deleted";

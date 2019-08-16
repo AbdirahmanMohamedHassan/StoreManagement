@@ -125,7 +125,7 @@
 						
 						$sql = "SELECT category_id,name,quantity,item_id,description FROM item";
 						$result = $conn->query($sql);
-						if ($result->num_rows > 0) {
+						if ($result > 0) {
 							while($row = $result->fetch_assoc()) {
 						?>
 																<tr class="odd gradeX">

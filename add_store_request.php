@@ -8,7 +8,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta name="description" content="Responsive Admin Template" />
     
-    <title>SIOS | Admin Panel</title>
+    <title>SMS | Admin Panel</title>
     <!-- google font -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
 	<!-- icons -->
@@ -170,7 +170,7 @@ if(isset($_POST['submit'])){
 
 
 // active is 0 by DEFAULT (no need to include it here)
-    $sql = "INSERT INTO store_request_form(id, item_id, quantity, department, created_date, requested_by, approved_date, approved_by, description)"
+    $sql = "INSERT INTO store_request(id, item_id, quantity, department, created_date, requested_by, approved_date, approved_by, description)"
     . "VALUES ('$id','$item_id','$quantity','$department','$created_date','$requested_by','$approved_date','$approved_by','$description')";
   echo $sql;
 }
