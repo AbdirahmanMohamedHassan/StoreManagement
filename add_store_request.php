@@ -66,20 +66,13 @@
                                 <div class="card-body" id="bar-parent">
                                     <form action="" method=POST id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
                                         <div class="form-body">
-                                        <div class="form-group row">
-                                                <label class="control-label col-md-3">Id
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-5">
-                                                    <input type="number" name="id" placeholder="enter id" class="form-control input-height" required/> </div>
-                                           
-										   </div>
+
                                            <div class="form-group row">
                                                 <label class="control-label col-md-3">Item Id
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="number" name="item_id" placeholder="enter item name" class="form-control input-height" required/> </div>
+                                                    <input type="number" name="item_id" placeholder="enter item id" class="form-control input-height" required/> </div>
                                            
 										   </div>
                                             <div class="form-group row">

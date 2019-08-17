@@ -74,12 +74,12 @@ unset( $_SESSION['adminmessage'] );
 ?>  
                                     <form action="" method=POST id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
 
-                                    <div class="form-group row">
-                                                <label class="control-label col-md-3">Id
+                                         <div class="form-group row">
+                                                <label class="control-label col-md-3">Purchase Order Id
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="number" name="purchase_order_id" placeholder="enter purchase order id" class="form-control input-height"  /> </div>
+                                                    <input type="number" name="purchase_order_id" placeholder="enter item id" class="form-control input-height" disabled /> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Item Id
@@ -94,13 +94,6 @@ unset( $_SESSION['adminmessage'] );
                                                 </label>
                                                 <div class="col-md-5">
                                                     <input type="text" name="vendor" placeholder=" enter vendor" class="form-control input-height" /> </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="control-label col-md-3">created_date
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-5">     
-                                                <input type="date" name="created_date" placeholder=" enter created date" class="form-control input-height" /> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Unit Price
@@ -129,6 +122,13 @@ unset( $_SESSION['adminmessage'] );
                                                 </label>
                                                 <div class="col-md-5">
                                                     <input type="number" name="amount" placeholder=" enter amount" class="form-control input-height" /> </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-md-3">created_date
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">     
+                                                <input type="date" name="created_date" placeholder=" enter created date" class="form-control input-height" /> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">pre By Name
@@ -172,15 +172,6 @@ unset( $_SESSION['adminmessage'] );
                                                 <div class="col-md-5">     
                                                 <input type="text" name="author_by_title" placeholder="author by title" class="form-control input-height" /> </div>
                                             </div>
-											  <div class="form-group row">
-                                                <label class="control-label col-md-3">Description
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-5">
-                                                <textarea id="summernote" style="tabsize:2;height:70" name="description" placeholder="Item details" rows="5" ></textarea>
-                                                 </div>
-                                                 </div>
-                                            
 											</div>
 											<div class="form-actions">
                                             <div class="row">
@@ -202,7 +193,6 @@ unset( $_SESSION['adminmessage'] );
             
             <?php
 if(isset($_POST['submit'])){
-	
     $purchase_order_id = $mysqli->escape_string($_POST['purchase_order_id']);
     $item_id = $mysqli->escape_string($_POST['item_id']);
     $vendor = $mysqli->escape_string($_POST['vendor']);
@@ -217,13 +207,12 @@ if(isset($_POST['submit'])){
     $appr_by_title = $mysqli->escape_string($_POST['appr_by_title']);
     $author_by_name = $mysqli->escape_string($_POST['author_by_name']);
     $author_by_title = $mysqli->escape_string($_POST['author_by_title']); 
-    $description = $mysqli->escape_string($_POST['description']);
 
 	
 // active is 0 by DEFAULT (no need to include it here)
-    $sql = "INSERT INTO purchase_order (purchase_order_id, item_id vendor, unit_price, quantity, total, amount, created_date, pre_by_name, pre_by_title, appr_by_name, appr_by_title, author_by_name, author_by_title, description ) " 
-            . "VALUES ('$purchase_order_id','$item_id','$vendor','$unit_price','$quantity','$total','$amount','$created_date','$pre_by_name','$pre_by_title','$appr_by_name'.'$appr_by_title','$author_by_name','$author_by_title','$description')";
-  
+    $sql = "INSERT INTO purchase_order (purchase_order_id, item_id, vendor, unit_price, quantity, total, amount, created_date, pre_by_name, pre_by_title, appr_by_name, appr_by_title, author_by_name, author_by_title) " 
+            . "VALUES (''$purchase_order_id',$vendor','$unit_price','$quantity','$total','$amount','$created_date','$pre_by_name','$pre_by_title','$appr_by_name','$appr_by_title','$author_by_name','$author_by_title')";
+  echo $sql;
 }
 
 

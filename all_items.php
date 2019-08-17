@@ -8,7 +8,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta name="description" content="Responsive Admin Template" />
     
-    <title>SIOS | Admin Panel</title>
+    <title>SMS | Admin Panel</title>
     <!-- google font -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
 	<!-- icons -->
@@ -125,9 +125,9 @@
 						
 						$sql = "SELECT category_id,name,quantity,item_id,description FROM item";
 						$result = $conn->query($sql);
-						if ($result > 0) {
+						if ($result->num_rows > 0) {
 							while($row = $result->fetch_assoc()) {
-						?>
+								?>
 																<tr class="odd gradeX">
 																<td class="left"><?php echo$row["item_id"] ?></td>
 																	<td class="left"><?php echo$row["name"] ?></td>

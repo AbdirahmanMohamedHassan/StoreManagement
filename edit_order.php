@@ -88,7 +88,7 @@ $result = $conn->query($sql);
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="number" name="order_id" value="<?php echo$row["order_id"] ?>" class="form-control input-height"  /> </div>
+                                                    <input type="number" name="order_id" value="<?php echo$row["order_id"] ?>" class="form-control input-height"  disabled /> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Number

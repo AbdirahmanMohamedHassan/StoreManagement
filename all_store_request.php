@@ -128,12 +128,12 @@
 					                                        <tbody>
 															<?php
 						
-						$sql = "SELECT id, quantity, department, created_date, requested_by, approved_date, approved_by, description, item_id FROM store_request ";
+						$sql = "SELECT id, quantity, department, created_date, requested_by, approved_date, approved_by, description, item_id FROM store_request";
 						$result = $conn->query($sql);
 						if ($result->num_rows > 0) {
 							while($row = $result->fetch_assoc()) {
-						?>
-						
+								?>
+
 																<tr class="odd gradeX">
 																<td class="left"><?php echo$row["id"] ?></td>
 																	<td class="left"><?php echo$row["item_id"] ?></td>

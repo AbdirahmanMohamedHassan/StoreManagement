@@ -79,7 +79,7 @@ unset( $_SESSION['adminmessage'] );
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="text" name="order_id" placeholder="enter order name" class="form-control input-height" required/> </div>
+                                                    <input type="text" name="order_id" placeholder="enter order name" class="form-control input-height" disabled required/> </div>
                                            
 										   </div>
                                         <div class="form-group row">
@@ -91,7 +91,7 @@ unset( $_SESSION['adminmessage'] );
                                            
 										   </div>
                                            <div class="form-group row">
-                                                <label class="control-label col-md-3">Purchase Order
+                                                <label class="control-label col-md-3">Purchase Order Id
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">

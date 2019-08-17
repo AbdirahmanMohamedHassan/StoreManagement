@@ -73,7 +73,7 @@
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="text" name="category_id" placeholder="enter category id" class="form-control input-height" required/> </div>
+                                                    <input type="text" name="category_id"  class="form-control input-height" disabled required/> </div>
                                            
 										   </div>
                                         <div class="form-group row">

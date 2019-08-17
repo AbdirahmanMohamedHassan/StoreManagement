@@ -29,7 +29,7 @@
 							
 							 <li class="nav-item start ">
 	                            <a href="all_items.php" class="nav-link nav-toggle">
-	                                <i class="material-icons">store</i>
+	                                <i class="material-icons">monetization_on</i>
 	                                <span class="title">Items</span>
 	                            </a>
 	                        

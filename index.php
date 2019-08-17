@@ -58,19 +58,18 @@
                             </ol>
                         </div>
                     </div>
-                   <!-- start widget -->
-					<div class="state-overview">
-							<div class="row">
+                 			<div class="row">
 						        <div class="col-xl-3 col-md-6 col-12">
-						          <div class="info-box bg-b-green">
-						            <span class="info-box-icon push-bottom"><i class="material-icons">group</i></span>
+						          <div class="info-box bg-blue">
+						            <span class="info-box-icon push-bottom"><i class="material-icons">home</i></span>
 						            <div class="info-box-content">
-						              <span class="info-box-text">Total Students</span>
-						             
+						              <span class="info-box-text">Items</span>
 						              <div class="progress">
-						                <div class="progress-bar" style="width: 45%"></div>
+						                <div class="progress-bar" style="width: 5%"></div>
 						              </div>
-						              
+						              <span class="progress-description">
+						                    5% 
+						                  </span>
 						            </div>
 						            <!-- /.info-box-content -->
 						          </div>
@@ -78,45 +77,50 @@
 						        </div>
 						        <!-- /.col -->
 						        <div class="col-xl-3 col-md-6 col-12">
-						          <div class="info-box bg-b-yellow">
-						            <span class="info-box-icon push-bottom"><i class="material-icons">school</i></span>
-						            <div class="info-box-content">
-						              <span class="info-box-text">Total Short Courses</span>
-						             
-						              <div class="progress">
-						                <div class="progress-bar" style="width: 40%"></div>
-						              </div>
-						            </div>
-						            <!-- /.info-box-content -->
-						          </div>
-						          <!-- /.info-box -->
-						        </div>
-						        <!-- /.col -->
-						        <div class="col-xl-3 col-md-6 col-12">
-						          <div class="info-box bg-b-blue">
-						            <span class="info-box-icon push-bottom"><i class="material-icons">school</i></span>
-						            <div class="info-box-content">
-						              <span class="info-box-text">Total Course</span>
-						           
-						              <div class="progress">
-						                <div class="progress-bar" style="width: 85%"></div>
-						              </div>
-						             
-						            </div>
-						            <!-- /.info-box-content -->
-						          </div>
-						          <!-- /.info-box -->
-						        </div>
-						        <!-- /.col -->
-						        <div class="col-xl-3 col-md-6 col-12">
-						          <div class="info-box bg-b-pink">
+						          <div class="info-box bg-orange">
 						            <span class="info-box-icon push-bottom"><i class="material-icons">person</i></span>
 						            <div class="info-box-content">
-						              <span class="info-box-text">Studing students</span>
-						              
+						              <span class="info-box-text">Orders</span>
+						              <div class="progress">
+						                <div class="progress-bar" style="width: 5%"></div>
+						              </div>
+						              <span class="progress-description">
+						                    6% 
+						                  </span>
+						            </div>
+						            <!-- /.info-box-content -->
+						          </div>
+						          <!-- /.info-box -->
+						        </div>
+						        <!-- /.col -->
+						        <div class="col-xl-3 col-md-6 col-12">
+						          <div class="info-box bg-purple">
+						            <span class="info-box-icon push-bottom"><i class="material-icons">content_cut</i></span>
+						            <div class="info-box-content">
+						              <span class="info-box-text">Store Requests</span>
+						              <div class="progress">
+						                <div class="progress-bar" style="width: 7%"></div>
+						              </div>
+						              <span class="progress-description">
+						                    7% 
+						                  </span>
+						            </div>
+						            <!-- /.info-box-content -->
+						          </div>
+						          <!-- /.info-box -->
+						        </div>
+						        <!-- /.col -->
+						        <div class="col-xl-3 col-md-6 col-12">
+						          <div class="info-box bg-success">
+						            <span class="info-box-icon push-bottom"><i class="material-icons">monetization_on</i></span>
+						            <div class="info-box-content">
+						              <span class="info-box-text">All puchases order</span>
 						              <div class="progress">
 						                <div class="progress-bar" style="width: 50%"></div>
 						              </div>
+						              <span class="progress-description">
+						                    9% 
+						                  </span>
 						            </div>
 						            <!-- /.info-box-content -->
 						          </div>
@@ -124,10 +128,7 @@
 						        </div>
 						        <!-- /.col -->
 						      </div>
-						</div>
-					<!-- end widget -->
-                 
-			
+
                      <!-- start new student list -->
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
@@ -143,14 +144,13 @@
 												<thead>
 													<tr>
 														<th>No</th>
-														<th>Student Name</th>
-														<th>Course </th>
-														<th>Date</th>
-														<th>Email</th>
-														<th>Phone</th>
-														<th>Status</th>
-														<th>Amount</th>
-														<th>Action</th>
+
+															<th> Id </th>
+					                                        <th> Name </th>
+                                                            <th> Quantity</th>
+															<th> Category </th>
+															<th> Description</th>
+					                                      <th> Action </th>
 													</tr>
 												</thead>
 												<tbody>
@@ -160,7 +160,7 @@
 										</div>
 									</div>	
 									<div class="text-center">
-										<a href="payments.php"><button  class="btn btn-outline-primary btn-round btn-sm">Load
+										<a href="all_items.php"><button  class="btn btn-outline-primary btn-round btn-sm">Load
 											More</button></a>
 									</div>
                                 </div>
@@ -175,7 +175,7 @@
                         <div class="col-md-12 col-sm-12">
                             <div class="card  card-box">
                                 <div class="card-head">
-                                    <header>Student Course Registration List</header>
+                                    <header>Store Request List</header>
                                     
                                 </div>
                                 <div class="card-body ">
@@ -184,12 +184,16 @@
 											<table class="table display product-overview mb-30" id="support_table">
 												<thead>
 													<tr>
-														<th>No</th>
-														<th>Student Name</th>
-														<th>Email </th>
-														<th>Gender</th>
-														<th>Phone</th>
-														<th>Date</th>
+													<th> Id </th>
+													<th> Item Id </th>
+					                                <th> Quantity </th>
+					                                <th> Department </th>
+					                                <th> Created Date </th>
+					                                <th> Requested By</th>
+													<th> Approved By</th>
+					                                 <th> Approved Date</th>
+													<th> Description</th>
+					                                 <th> Action </th>
 													</tr>
 												</thead>
 												<tbody>
@@ -199,7 +203,7 @@
 										</div>
 									</div>	
 									<div class="text-center">
-										<a href="students.php"><button  class="btn btn-outline-primary btn-round btn-sm">Load
+										<a href="all_store_request.php"><button  class="btn btn-outline-primary btn-round btn-sm">Load
 											More</button></a>
 									</div>
                                 </div>
