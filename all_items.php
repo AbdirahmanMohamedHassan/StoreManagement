@@ -1,4 +1,8 @@
-<?php require 'db.php'; ?>
+<?php 
+require 'db.php';
+  session_start(); 
+  
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- BEGIN HEAD -->
@@ -29,7 +33,19 @@
     <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
 	<link href="assets/css/theme/light/theme-color.css" rel="stylesheet" type="text/css" />
 	<!-- favicon -->
-    <link rel="shortcut icon" href="http://radixtouch.in/templates/admin/smart/source/assets/img/favicon.ico" /> 
+	<link rel="shortcut icon" href="http://radixtouch.in/templates/admin/smart/source/assets/img/favicon.ico" /> 
+	<script>
+    function deleletconfig(){
+
+    var del=confirm("Are you sure you want to delete this record?");
+    if (del==true){
+       alert ("One row is deleted")
+    }else{
+        alert("Record Not Deleted")
+    }
+    return del;
+    }
+</script>
 </head>
 <!-- END HEAD -->
 <body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-white white-sidebar-color logo-indigo">
@@ -88,23 +104,13 @@
 					                                        </div>
 					                                        <div class="col-md-6 col-sm-6 col-6">
 					                                            <div class="btn-group pull-right">
-					                                                <a class="btn deepPink-bgcolor  btn-outline dropdown-toggle" data-toggle="dropdown">Tools
-					                                                    <i class="fa fa-angle-down"></i>
+																	<form  method="POST">
+																<a href="report_items.php" class="btn deepPink-bgcolor btn-outline"  class="button" name="Print">Report</a>
+</form>
+					                                          
+																<i class="fa fa-angle-down"></i>
 					                                                </a>
-					                                                <ul class="dropdown-menu pull-right">
-					                                                    <li>
-					                                                        <a href="javascript:;">
-					                                                            <i class="fa fa-print"></i> Print </a>
-					                                                    </li>
-					                                                    <li>
-					                                                        <a href="javascript:;">
-					                                                            <i class="fa fa-file-pdf-o"></i> Save as PDF </a>
-					                                                    </li>
-					                                                    <li>
-					                                                        <a href="javascript:;">
-					                                                            <i class="fa fa-file-excel-o"></i> Export to Excel </a>
-					                                                    </li>
-					                                                </ul>
+					            
 					                                            </div>
 					                                        </div>
 					                                    </div>
@@ -138,28 +144,21 @@
 															
 																				<i > <a href="edit_item.php?item_id=<?php echo$row["item_id"] ?>"><button type="button" href="edit_item.php" class="fa fa-pencil"></button></a>	</i>
 																		<form action="" method=POST>
-																		<button class="btn btn-danger btn-xs" value="<?php echo $row["item_id"] ?>" type="submit"  name="delete">
+																		<button class="btn btn-danger btn-xs" value="<?php echo $row["item_id"] ?>" type="submit"  name="delete" onclick="return deleletconfig();">
 																		
 																			<i class="fa fa-trash-o "></i>
 																		</button>
 																		</form>
 																	</td>
 																</tr>
-																<?php }}else if ($result->num_rows == 0) {echo "<center><h2>no items a valiabe</h2></center>";}?>
+																<?php }}else if ($result == 0) {echo "<center><h2>no items a valiabe</h2></center>";}?>
 																<?php if(isset($_POST['delete'])){
 										$id = $mysqli->escape_string($_POST['delete']);
 	
-	$result = $mysqli->query("SELECT * FROM item WHERE item_id='$id'") or die($mysqli->error());
-
 $sql = "delete from item WHERE item_id='$id' ";						
 
    if ( $mysqli->query($sql) ){
-		 echo "successfuly deleted";
-	}
-else {
-
-echo "not deleted";
-    }
+   	 }
 	
 										}?>
 															</tbody>

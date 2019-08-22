@@ -1,6 +1,4 @@
-<?php require 'db.php'; 
-
-?>
+<?php require 'db.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- BEGIN HEAD -->
@@ -54,14 +52,14 @@
                     <div class="page-bar">
                         <div class="page-title-breadcrumb">
                             <div class=" pull-left">
-                                <div class="page-title">Edit Pucrhase Order</div>
+                                <div class="page-title">Edit Purchase Order</div>
                             </div>
                             <ol class="breadcrumb page-breadcrumb pull-right">
                                 <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index.php">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
                                 </li>
                                 <li><a class="parent-item" href="#">Item</a>&nbsp;<i class="fa fa-angle-right"></i>
                                 </li>
-                                <li class="active">Edit Pucrhase Order</li>
+                                <li class="active">Edit Purchase Order</li>
                             </ol>
                         </div>
                     </div>
@@ -69,12 +67,12 @@
                         <div class="col-md-12 col-sm-12">
                             <div class="card card-box">
                                 							
-                                <div class="card-body" id="bar-parent">
-                                    <form action="" method=POST id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
+                                <div class="card-body" >
+                                    <form action="process_purchase_order.php" method=POST  class="form-horizontal" enctype="multipart/form-data">
                                         <div class="form-body">
 								 <?php
 
-$sql = "SELECT purchase_order_id, vendor, unit_price, quantity, total, amount, created_date, pre_by_name, pre_by_title, appr_by_name, appr_by_title, author_by_name, author_by_title, item_id, description FROM purchase_order";
+$sql = "SELECT purchase_order_id, item_id, vendor, quantity, total, amount, created_date, pre_by_name, pre_by_title, appr_by_name, appr_by_title, author_by_name, author_by_title FROM purchase_order WHERE purchase_order_id  ='$_GET[purchase_order_id]'";
 $result = $conn->query($sql);
 
 
@@ -88,7 +86,7 @@ $result = $conn->query($sql);
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="number" name="purchase_order_id" value="<?php echo$row["purchase_order_id"] ?>" class="form-control input-height"  disabled /> </div>
+                                                    <input type="number" name="purchase_order_id" value="<?php echo$row["purchase_order_id"] ?>" class="form-control input-height"   /> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Item Id
@@ -109,7 +107,7 @@ $result = $conn->query($sql);
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">     
-                                                <input type="date" name="unit_price" value="<?php echo$row["unit_price"] ?>" class="form-control input-height" /> </div>
+                                                <input type="date" name="created_date" value="<?php echo$row["created_date"] ?>" class="form-control input-height" /> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Quantity
@@ -174,14 +172,6 @@ $result = $conn->query($sql);
                                                 <div class="col-md-5">     
                                                 <input type="number" name="author_by_title" value="<?php echo$row["author_by_title"] ?>" class="form-control input-height" /> </div>
                                             </div>
-											  <div class="form-group row">
-                                                <label class="control-label col-md-3">Description
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-5">
-                                                <textarea id="summernote" style="tabsize:2;height:70" name="description" placeholder="Item details" rows="5" ><?php echo$row["description"] ?></textarea>
-                                                 </div>
-                                                 </div>
 											<div class="form-actions">
                                             <div class="row">
                                                 <div class="offset-md-3 col-md-9">
@@ -199,41 +189,7 @@ $result = $conn->query($sql);
                         </div>
                     </div>
                 </div>
-                <?php
-if(isset($_POST['submit'])){
-	"SELECT purchase_order_id, vendor, unit_price, quantity, total, amount, created_date, pre_by_name, pre_by_title, appr_by_name, appr_by_title, author_by_name, author_by_title, item_id, description FROM purchase_order";
-	
-    $purchase_order_id = $mysqli->escape_string($_POST['purchase_order_id']);
-    $vendor = $mysqli->escape_string($_POST['vendor']);
-    $unit_price = $mysqli->escape_string($_POST['unit_price']);
-    $quantity = $mysqli->escape_string($_POST['quantity']);
-    $total = $mysqli->escape_string($_POST['total']);
-    $amount = $mysqli->escape_string($_POST['amount']);
-    $created_date = $mysqli->escape_string($_POST['created_date']);
-    $pre_by_name = $mysqli->escape_string($_POST['pre_by_name']);
-    $pre_by_title = $mysqli->escape_string($_POST['pre_by_title']);
-    $appr_by_name = $mysqli->escape_string($_POST['appr_by_name']);
-    $appr_by_title = $mysqli->escape_string($_POST['appr_by_title']);
-    $author_by_name = $mysqli->escape_string($_POST['author_by_name']);
-    $author_by_title = $mysqli->escape_string($_POST['author_by_title']);
-    $item_id = $mysqli->escape_string($_POST['item_id']);
-
-// active is 0 by DEFAULT (no need to include it here)
-    $sql = "UPDATE purchase_order SET purchase_order_id='$purchase_order_id', item_id='$item_id', vendor= '$vendor' ,unit_price='$unit_price', quantity='$quantity',total='$total', amount='$amount', created_date='$created_date',pre_by_name='$pre_by_name', pre_by_title='$pre_by_title', appr_by_name='$appr_by_name', appr_by_title='$appr_by_title', author_by_name='$author_by_name', author_by_title='$author_by_title' WHERE purchase_order_id = '$_GET[purchase_order_id]'";
-    // Add user to the database
-    echo $sql;
-}
-    if ( $mysqli->query($sql) ){
-
-        echo"Records created successfully.";
-   }
-   else{
-       echo "Something went wrong. Please try again later.";
-   }
-
-
-?>
-            </div>
+             </div>
             <!-- end page content -->
 
         </div>

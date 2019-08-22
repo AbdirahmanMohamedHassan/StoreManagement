@@ -70,7 +70,7 @@
                             <div class="card card-box">
                                 							
                                 <div class="card-body" id="bar-parent">
-                                    <form action="" method=POST id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
+                                    <form action="process_category.php" method="POST" id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
                                         <div class="form-body">
 								 <?php
 $sql="SELECT category_id, name, type, description FROM category WHERE category_id  ='$_GET[category_id]'";
@@ -88,7 +88,7 @@ $result = $conn->query($sql);
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="number" name="category_id" value="<?php echo$row["category_id"] ?>" class="form-control input-height"  disabled /> </div>
+                                                    <input type="number" name="category_id" value="<?php echo$row["category_id"] ?>" class="form-control input-height"   /> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Name
@@ -115,7 +115,7 @@ $result = $conn->query($sql);
 											<div class="form-actions">
                                             <div class="row">
                                                 <div class="offset-md-3 col-md-9">
-                                                    <input type="submit" name="submit" class="btn btn-info">
+                                                    <input type="submit" name="submit" value="update" class="btn btn-info">
                                                     <button type="button" class="btn btn-default">Cancel</button>
                                                 </div>
                                             	</div>
@@ -129,30 +129,6 @@ $result = $conn->query($sql);
                         </div>
                     </div>
                 </div>
-                <?php
-if(isset($_POST['submit'])){
-	
-	
-    $id = $mysqli->escape_string($_POST['category_id']);
-    $name = $mysqli->escape_string($_POST['name']);
-    $type = $mysqli->escape_string($_POST['type']);
-    $description = $mysqli->escape_string($_POST['description']);
-
-// active is 0 by DEFAULT (no need to include it here)
-    $sql = "UPDATE category  SET category_id='$id',name= '$name' ,type='$type',description='$description' WHERE category_id = '$_GET[category_id]'";
-    // Add user to the database
-    echo $sql;
-}
-    if ( $mysqli->query($sql) ){
-
-        echo"Records created successfully.";
-   }
-   else{
-       echo "Something went wrong. Please try again later.";
-   }
-
-
-?>
             </div>
             <!-- end page content -->
 

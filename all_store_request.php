@@ -1,4 +1,10 @@
-<?php require 'db.php'; ?>
+
+<?php 
+require 'db.php';
+  session_start(); 
+
+  
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- BEGIN HEAD -->
@@ -29,7 +35,20 @@
     <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
 	<link href="assets/css/theme/light/theme-color.css" rel="stylesheet" type="text/css" />
 	<!-- favicon -->
-    <link rel="shortcut icon" href="http://radixtouch.in/templates/admin/smart/source/assets/img/favicon.ico" /> 
+    <link rel="shortcut icon" href="http://radixtouch.in/templates/admin/smart/source/assets/img/favicon.ico" />    
+<script>
+    function deleletconfig(){
+
+    var del=confirm("Are you sure you want to delete this record?");
+    if (del==true){
+       alert ("One row is deleted")
+    }else{
+        alert("Record Not Deleted")
+    }
+    return del;
+    }
+</script>
+
 </head>
 <!-- END HEAD -->
 <body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-white white-sidebar-color logo-indigo">
@@ -88,7 +107,7 @@
 					                                        </div>
 					                                        <div class="col-md-6 col-sm-6 col-6">
 					                                            <div class="btn-group pull-right">
-					                                                <a class="btn deepPink-bgcolor  btn-outline dropdown-toggle" data-toggle="dropdown">Tools
+					                                                <a class="btn deepPink-bgcolor  btn-outline dropdown-toggle" data-toggle="dropdown">Report
 					                                                    <i class="fa fa-angle-down"></i>
 					                                                </a>
 					                                                <ul class="dropdown-menu pull-right">
@@ -126,11 +145,12 @@
 					                                            </tr>
 					                                        </thead>
 					                                        <tbody>
-															<?php
-						
-						$sql = "SELECT id, quantity, department, created_date, requested_by, approved_date, approved_by, description, item_id FROM store_request";
+						<?php
+																
+						$sql = "SELECT id, item_id, quantity, department, created_date, requested_by, approved_by, approved_date, occupation FROM store_request";
 						$result = $conn->query($sql);
 						if ($result->num_rows > 0) {
+							$i=1;
 							while($row = $result->fetch_assoc()) {
 								?>
 
@@ -143,35 +163,33 @@
 																	<td class="left"><?php echo$row["requested_by"] ?></td>
 																	<td class="left"><?php echo$row["approved_by"] ?></td>
 																	<td class="left"><?php echo$row["approved_date"] ?></td>
-																	<td class="left"><?php echo$row["description"] ?></td>
-																	<td>
-															
-																				<i > <a href="edit_store_request.php?id=<?php echo$row["id"] ?>"><button type="button" href="edit_store_request.php" class="fa fa-pencil"></button></a>	</i>
+																	<td class="left"><?php echo$row["occupation"] ?></td>
+                                                                     <td>
+																		<a href="edit_store_request.php?id=<?php echo$row["id"] ?>"  class="btn btn-primary btn-xs">
+																			<i class="fa fa-pencil"></i>
+																		</a>
 																		<form action="" method=POST>
-																		<button class="btn btn-danger btn-xs" value="<?php echo $row["id"] ?>" type="submit"  name="delete">
-																		
+																		<button class="btn btn-danger btn-xs" value="<?php echo $row["id"] ?>" type="submit"  name="delete"  onclick="return deleletconfig();">
 																			<i class="fa fa-trash-o "></i>
 																		</button>
 																		</form>
 																	</td>
+																	</td>
 																</tr>
-																<?php }}else if ($result->num_rows == 0) {echo "<center><h2>no items a valiabe</h2></center>";}?>
-																<?php if(isset($_POST['delete'])){
-										$id = $mysqli->escape_string($_POST['delete']);
-	
-	$result = $mysqli->query("SELECT * FROM store_request WHERE id='$id'") or die($mysqli->error());
+																<?php 
+															  $i++;
+															  }}else if ($result->num_rows == 0) {echo "<center><h2>no items a valiabe</h2></center>";}?>
+																
+<?php
 
-$sql = "delete from store_request WHERE id='$id' ";						
+if(isset($_POST['delete'])){
+	$id = $mysqli->escape_string($_POST['delete']);
+    $sql = "delete from store_request WHERE id='$id' ";						
+}
+if ( $mysqli->query($sql) ){
 
-   if ( $mysqli->query($sql) ){
-		 echo "successfuly deleted";
-	}
-else {
-
-echo "not deleted";
-    }
-	
-										}?>
+ }
+										?>
 											             	</tbody>
 					                                    </table>
 					                              </div>

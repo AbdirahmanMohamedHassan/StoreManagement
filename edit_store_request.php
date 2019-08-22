@@ -70,11 +70,11 @@
                             <div class="card card-box">
                                 							
                                 <div class="card-body" id="bar-parent">
-                                    <form action="" method=POST id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
+                                    <form action="process_store_request.php" method=POST id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
                                         <div class="form-body">
 								 <?php
 
-$sql = "SELECT id, quantity, department, created_date, requested_by, approved_date, approved_by, description, item_id FROM store_request_form   WHERE id  ='$_GET[id]'";
+$sql = "SELECT id, quantity, department, created_date, requested_by, approved_date, approved_by, occupation, item_id FROM store_request   WHERE id  ='$_GET[id]'";
 $result = $conn->query($sql);
 
 
@@ -88,7 +88,7 @@ $result = $conn->query($sql);
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="number" name="id" value="<?php echo$row["id"] ?>" class="form-control input-height"  disabled/> </div>
+                                                    <input type="hidden" name="id" value="<?php echo$row["id"] ?>" class="form-control input-height"  /> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Item Id
@@ -96,6 +96,13 @@ $result = $conn->query($sql);
                                                 </label>
                                                 <div class="col-md-5">
                                                     <input type="text" name="item_id" value="<?php echo$row["item_id"] ?>" class="form-control input-height" /> </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-md-3"> Quantity
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">
+                                                    <input type="number" name="quantity" value="<?php echo$row["quantity"] ?>" class="form-control input-height" /> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Department
@@ -133,17 +140,17 @@ $result = $conn->query($sql);
                                                 <input type="date" name="approved_date" value="<?php echo$row["approved_date"] ?>" class="form-control input-height" /> </div>
                                                  </div>
                                                  <div class="form-group row">
-                                                <label class="control-label col-md-3">Description
+                                                <label class="control-label col-md-3">Occupation
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                <textarea id="summernote" style="tabsize:2;height:70" name="description" placeholder="Item details" rows="5" ><?php echo$row["requested_by"] ?></textarea>
-                                                 </div>
+                                                <input type="text" name="occupation" value="<?php echo$row["occupation"] ?>" class="form-control input-height" /> </div>
+                                                    </div>
                                                  </div>
 											<div class="form-actions">
                                             <div class="row">
                                                 <div class="offset-md-3 col-md-9">
-                                                    <input type="submit" name="submit" class="btn btn-info">
+                                                    <input type="submit" name="submit" value="update" class="btn btn-info">
                                                     <button type="button" class="btn btn-default">Cancel</button>
                                                 </div>
                                             	</div>
@@ -157,33 +164,7 @@ $result = $conn->query($sql);
                         </div>
                     </div>
                 </div>
-                <?php
-if(isset($_POST['submit'])){
-	
-     $id = $mysqli->escape_string($_POST['id']);
-    $item_id = $mysqli->escape_string($_POST['item_id']);
-    $quantity = $mysqli->escape_string($_POST['quantity']);
-    $department = $mysqli->escape_string($_POST['department']);
-    $created_date = $mysqli->escape_string($_POST['created_date']);
-    $requested_by = $mysqli->escape_string($_POST['requested_by']);
-    $approved_date = $mysqli->escape_string($_POST['approved_date']);
-    $description = $mysqli->escape_string($_POST['description']);
-
-// active is 0 by DEFAULT (no need to include it here)
-    $sql = "UPDATE store_request_form SET item_id='$id' , item_id='$item_id',quantity= '$quantity' ,department='$department',created_date='$created_date',requested_by='$requested_by', approved_date='$approved_date' WHERE id = '$_GET[id]'";
-    // Add user to the database
-    echo $sql;
-}
-    if ( $mysqli->query($sql) ){
-
-        echo"Records created successfully.";
-   }
-   else{
-       echo "Something went wrong. Please try again later.";
-   }
-
-
-?>
+               
             </div>
             <!-- end page content -->
 

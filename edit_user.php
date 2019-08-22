@@ -70,7 +70,7 @@
                             <div class="card card-box">
                                 							
                                 <div class="card-body" id="bar-parent">
-                                    <form action="" method=POST id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
+                                    <form action="process_user.php" method=POST id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
                                         <div class="form-body">
 								 <?php
 
@@ -86,7 +86,7 @@ $result = $conn->query($sql);
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="number" name="id" value="<?php echo$row["id"] ?>"  class="form-control input-height" disabled required /> </div>
+                                                    <input type="number" name="id" value="<?php echo$row["id"] ?>"  class="form-control input-height" /> </div>
                                             
 										   </div>
                                         <div class="form-group row">
@@ -139,7 +139,7 @@ $result = $conn->query($sql);
 											<div class="form-actions">
                                             <div class="row">
                                                 <div class="offset-md-3 col-md-9">
-                                                    <input type="submit" name="submit" class="btn btn-info">
+                                                    <input type="submit" name="submit" value="update" class="btn btn-info">
                                                     <button type="button" class="btn btn-default">Cancel</button>
                                                 </div>
                                             	</div>
@@ -152,35 +152,7 @@ $result = $conn->query($sql);
                         </div>
                     </div>
                 </div>
-                <?php
-if(isset($_POST['submit'])){
-	
-	
-    $id = $mysqli->escape_string($_POST['id']);
-    $user_name = $mysqli->escape_string($_POST['user_name']);
-    $password = $mysqli->escape_string($_POST['password']);
-    $full_name = $mysqli->escape_string($_POST['full_name']);
-    $department = $mysqli->escape_string($_POST['department']);
-    $phone = $mysqli->escape_string($_POST['phone']);
-    $address = $mysqli->escape_string($_POST['address']);
-
-// active is 0 by DEFAULT (no need to include it here)
-
-$sql = " UPDATE user SET id='$id', user_name= '$user_name', password='$password', full_name='$full_name', department='$department', phone='$phone', address='$address' WHERE id = '$_GET[id]'";
-    // Add user to the database
-    echo $sql;
-}
-    if ( $mysqli->query($sql) ){
-
-        echo"Records created successfully.";
-   }
-   else{
-       echo "Something went wrong. Please try again later.";
-   }
-
-
-?>
-            </div>
+       </div>
             <!-- end page content -->
 
         </div>

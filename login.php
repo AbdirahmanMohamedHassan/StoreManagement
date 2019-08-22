@@ -1,51 +1,131 @@
+<?php 
+
+session_start();
+include ("db.php");
+
+
+if (isset($_POST['submit'])) {
+  
+$userName = $_POST['userName'];
+$Password = $_POST['password'];
+
+$sql = mysqli_query($conn,"SELECT * FROM `user` where username='$userName' and password='$Password'");
+
+
+
+if(!empty($userName) || !empty($Password)){
+$row = mysqli_num_rows($sql);
+if ($row ==1) {
+  
+  $_SESSION['check_user'] = $userName;
+  header('location: index.php');
+}
+
+else{
+
+$invalid = "User Name or Password is incorrect";
+
+}
+}
+
+}
+
+
+
+
+
+
+
+
+?>
+
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta name="description" content="Responsive Admin Template" />
-    
-    <title>SMS | Admin Panel</title>
-    <!-- google font -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
-	<!-- icons -->
-    <link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-	<link href="fonts/material-design-icons/material-icon.css" rel="stylesheet" type="text/css" />
-    <!-- bootstrap -->
-	<link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <!-- style -->
-    <link rel="stylesheet" href="assets/css/pages/extra_pages.css">
-	<!-- favicon -->
-    <link rel="shortcut icon" href="http://radixtouch.in/templates/admin/smart/source/assets/img/favicon.ico" /> 
+  <title>login</title>
+   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="styles/bootstrap/metro-theme.css">
+  <link rel="stylesheet" href="styles/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="styles/font-awesome/css/font-awesome.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body>
-    <div class="form-title">
-        <h1>Admin Login Form</h1>
-    </div>
-    <!-- Login Form-->
-    <div class="login-form text-center">
-        <div class="toggle">
+
+  <body>
+
+  <div class="container"  style="margin-left:360px">
+    <div style="height: 100px"></div>
+      <div class="col-md-8 col-md-offset-2 panel" style="border:1px solid skyblue;">
+        <div class="text-center text-primary panel-heading">
+           <h1><i class="fa fa-user"></i>Login</h1>
         </div>
-        <div class="form formLogin">
-            <h2>Login to your account</h2>
-            <form action="" method=POST>
-                <input type="text" placeholder="Username" name="username" autocomplete=off >
-                <input type="password" placeholder="Password" name="password" autocomplete=off>
-                
-                <input style="background:#46D7EA;cursor:pointer;color:white" type="submit" name="submit" value="Login">
-                
+
+        <?php 
+     if (isset($invalid)) {
+      
+     
+         ?>
+
+         <div class="text-center text-danger panel-heading">
+           <h3 class="alert alert-danger"><i class="fa fa-times"></i><?php echo$invalid; ?></h3>
+        </div>
+        <?php } ?>
+          <div class="panel-body">
+            <form class="form-horizontal" method="POST">
+              <div class="form-group">
+                <label class="col-md-2 control-label">User Name</label>
+                 <div class="col-md-8">
+                   <input type="text" name="userName" placeholder="user name" class="form-control">
+                   <?php if (isset($_POST['submit'])) {
+                     if (empty($userName)) {
+                      $user_error ="Please userName is Required ";
+                    ?>
+
+                    <span class="text-center text-danger">
+                      <i class="fa fa-times"></i>
+                      <?php echo$user_error; ?>
+                    </span>
+                    <?php }} ?>
+                   </div>
+                   </div>
+                    <div class="form-group">
+                      <label class="col-md-2 control-label">Password</label>
+                       <div class="col-md-8">
+                   <input type="text" name="password"  placeholder="password"  class="form-control">
+                    <?php if (isset($_POST['submit'])) {
+                     if (empty($Password)) {
+                      $user_error ="Please Password can not be  Empty ";
+                    ?>
+
+                    <span class="text-center text-danger">
+                      <i class="fa fa-times"></i>
+                      <?php echo$user_error; ?>
+                    </span>
+                    <?php }} ?>
+                 </div>
+                </div>
+                <div class="form-group">
+                 <div class="col-md-8 col-md-offset-2">
+                   <button name="submit" class="btn btn-primary btn-md">Login</button>
+                 </div>
                 </div>
             </form>
-        </div>
-     
-      
-    </div>
-    <!-- start js include path -->
-    <script src="assets/plugins/jquery/jquery.min.js" ></script>
-    
-    <script src="assets/js/pages/extra-pages/pages.js" ></script>
-    <!-- end js include path -->
+          </div>
+      </div>
+
+  </div>
+
+
+
+  <?php 
+
+ ?>
+
+
+
 </body>
 </html>

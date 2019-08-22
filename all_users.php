@@ -1,4 +1,11 @@
-<?php require 'db.php'; ?>
+
+
+<?php 
+require 'db.php';
+  session_start(); 
+
+  
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- BEGIN HEAD -->
@@ -29,7 +36,20 @@
     <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
 	<link href="assets/css/theme/light/theme-color.css" rel="stylesheet" type="text/css" />
 	<!-- favicon -->
-    <link rel="shortcut icon" href="http://radixtouch.in/templates/admin/smart/source/assets/img/favicon.ico" /> 
+	<link rel="shortcut icon" href="http://radixtouch.in/templates/admin/smart/source/assets/img/favicon.ico" /> 
+	<script>
+    function deleletconfig(){
+
+    var del=confirm("Are you sure you want to delete this record?");
+    if (del==true){
+       alert ("One row is deleted")
+    }else{
+        alert("Record Not Deleted")
+    }
+    return del;
+    }
+</script>
+
 </head>
 <!-- END HEAD -->
 <body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-white white-sidebar-color logo-indigo">
@@ -113,7 +133,9 @@
 					                                        <thead>
 					                                            <tr>
 																	<th> Id </th>
-					                                                <th> User Name </th>
+																	<th> User Name </th>
+																	<th> Email </th>
+					                                                
                                                                     <th> Password</th>
 																	<th> Full Name </th>
 																	<th> Department</th>
@@ -125,15 +147,17 @@
 					                                        <tbody>
 															<?php
 						
-						$sql = "SELECT id, user_name, password, full_name, department, phone, address FROM user";
+						$sql = "SELECT `id`, `username`, `email`, `password`, `full_name`, `department`, `phone`, `address` FROM `user`";
 						$result = $conn->query($sql);
 						if ($result->num_rows > 0) {
+							$i=1;
 							while($row = $result->fetch_assoc()) {
-						?>
+								?>
 																<tr class="odd gradeX">
 																<td class="left"><?php echo$row["id"] ?></td>
-																	<td class="left"><?php echo$row["user_name"] ?></td>
-																	<td><?php echo$row["password"] ?></td>
+																	<td class="left"><?php echo$row["username"] ?></td>
+																	<td class="left"><?php echo$row["email"] ?></td>
+																	<td class="left"><?php echo$row["password"] ?></td>
 																	<td class="left"><?php echo$row["full_name"] ?></td>
 																	<td class="left"><?php echo$row["department"] ?></td>
                                                                     <td class="left"><?php echo$row["phone"] ?></td>
@@ -142,27 +166,21 @@
 															
 																				<i > <a href="edit_user.php?id=<?php echo$row["id"] ?>"><button type="button" href="edit_item.php" class="fa fa-pencil"></button></a>	</i>
 																		<form action="" method=POST>
-																		<button class="btn btn-danger btn-xs" value="<?php echo $row["id"] ?>" type="submit"  name="delete">
+																		<button class="btn btn-danger btn-xs" value="<?php echo $row["id"] ?>" type="submit"  name="delete" onclick="return deleletconfig();">
 																		
 																			<i class="fa fa-trash-o "></i>
 																		</button>
 																		</form>
 																	</td>
 																</tr>
-																<?php }}else if ($result->num_rows == 0) {echo "<center><h2>no items a valiabe</h2></center>";}?>
+																<?php }}else if ($result == 0) {echo "<center><h2>no items a valiabe</h2></center>";}?>
 																<?php if(isset($_POST['delete'])){
 										$id = $mysqli->escape_string($_POST['delete']);
 	
-	$result = $mysqli->query("SELECT * FROM user WHERE id='$id'") or die($mysqli->error());
-
 $sql = "delete from user WHERE id='$id' ";						
 
    if ( $mysqli->query($sql) ){
-		 echo "successfuly deleted";
-	}
-else {
 
-echo "not deleted";
     }
 	
 										}?>

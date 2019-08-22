@@ -1,4 +1,9 @@
+<?php
+session_start();
+//include_once('functions/functions.php');
+include 'db.php'; 
 
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- BEGIN HEAD -->

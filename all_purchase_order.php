@@ -1,4 +1,10 @@
-<?php require 'db.php'; ?>
+
+<?php 
+require 'db.php';
+  session_start(); 
+
+  
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- BEGIN HEAD -->
@@ -30,6 +36,19 @@
 	<link href="assets/css/theme/light/theme-color.css" rel="stylesheet" type="text/css" />
 	<!-- favicon -->
     <link rel="shortcut icon" href="http://radixtouch.in/templates/admin/smart/source/assets/img/favicon.ico" /> 
+	<script>
+    function deleletconfig(){
+
+    var del=confirm("Are you sure you want to delete this record?");
+    if (del==true){
+       alert ("One row is deleted")
+    }else{
+        alert("Record Not Deleted")
+    }
+    return del;
+    }
+</script>
+
 </head>
 <!-- END HEAD -->
 <body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-white white-sidebar-color logo-indigo">
@@ -112,13 +131,9 @@
 					                                    <table class="table table-striped table-bordered table-hover table-checkable order-column valign-middle" id="example4">
 					                                        <thead>
 					                                            <tr>
-																	<th> Id </th>
 																	<th> Item Id </th>
 					                                                <th> Vendor </th>
-                                                                    <th> Unit Price</th>
 																	<th> quantity </th>
-																	<th> Total</th>
-																	<th> amount </th>
                                                                     <th> Created date</th>
 																	<th> Pre By Name </th>
 																	<th> Pre By Title</th>
@@ -132,19 +147,16 @@
 					                                        <tbody>
 															<?php
 						
-						$sql = "SELECT `purchase_order_id`, `vendor`, `unit_price`, `quantity`, `total`, `amount`, `created_date`, `pre_by_name`, `pre_by_title`, `appr_by_name`, `appr_by_title`, `author_by_name`, `author_by_title`, `item_id` FROM `purchase_order`";
+						$sql = "SELECT  `vendor`,  `quantity`,, `created_date`, `pre_by_name`, `pre_by_title`, `appr_by_name`, `appr_by_title`, `author_by_name`, `author_by_title`, `item_id` FROM `purchase_order`";
 						$result = $conn->query($sql);
-						if ($result->num_rows > 0) {
+						if ($result > 0) {
 							while($row = $result->fetch_assoc()) {
 						?>
 																<tr class="odd gradeX">
-																<td class="left"><?php echo$row["purchase_order_id"] ?></td>
+															
 																<td class="left"><?php echo$row["item_id"] ?></td>
 																	<td class="left"><?php echo$row["vendor"] ?></td>
-																	<td><?php echo$row["unit_price"] ?></td>
 																	<td class="left"><?php echo$row["quantity"] ?></td>
-																	<td class="left"><?php echo$row["total"] ?></td>
-																	<td class="left"><?php echo$row["amount"] ?></td>
 																	<td><?php echo$row["created_date"] ?></td>
 																	<td class="left"><?php echo$row["pre_by_name"] ?></td>
 																	<td class="left"><?php echo$row["pre_by_title"] ?></td>
@@ -154,30 +166,24 @@
 																	<td class="left"><?php echo$row["author_by_title"] ?></td>
 																	<td>
 															
-																				<i > <a href="edit_purchase_order.php?purchase_order_id=<?php echo$row["purchase_order_id"] ?>"><button type="button" href="edit_item.php" class="fa fa-pencil"></button></a>	</i>
+																				<i > <a href="edit_purchase_order.php?purchase_order_id=<?php echo$row["purchase_order_id"] ?>"><button type="button" href="edit_purchase_order.php" class="fa fa-pencil"></button></a>	</i>
 																		<form action="" method=POST>
-																		<button class="btn btn-danger btn-xs" value="<?php echo $row["purchase_order_id"] ?>" type="submit"  name="delete">
+																		<button class="btn btn-danger btn-xs" value="<?php echo $row["purchase_order_id"] ?>" type="submit"  name="delete" onclick="return deleletconfig();">
 																		
 																			<i class="fa fa-trash-o "></i>
 																		</button>
 																		</form>
 																	</td>
 																</tr>
-																<?php }}else if ($result->num_rows == 0) {echo "<center><h2>no items a valiabe</h2></center>";}?>
+																<?php }}else if ($result == 0) {echo "<center><h2>no items a valiabe</h2></center>";}?>
 																<?php if(isset($_POST['delete'])){
 										$id = $mysqli->escape_string($_POST['delete']);
-	
-	$result = $mysqli->query("SELECT * FROM purchase_order WHERE purchase_order_id='$id'") or die($mysqli->error());
-
-$sql = "delete from item WHERE purchase_order_id='$id' ";						
+$sql = "delete from item WHERE purchase_order_id='$id'";						
 
    if ( $mysqli->query($sql) ){
-		 echo "successfuly deleted";
-	}
-else {
 
-echo "not deleted";
-    }
+	}
+
 	
 										}?>
 															</tbody>

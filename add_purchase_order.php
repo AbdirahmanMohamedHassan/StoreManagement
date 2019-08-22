@@ -30,6 +30,27 @@
 	<link href="assets/css/theme/light/theme-color.css" rel="stylesheet" type="text/css" />
 	<!-- favicon -->
 	<link rel="shortcut icon" href="http://radixtouch.in/templates/admin/smart/source/assets/img/favicon.ico" /> 
+  
+    <style >
+    select {
+
+    background-color: white; /* fallback color if gradients are not supported */
+      background-position: center right;
+    background-repeat: no-repeat;
+    border: 1px solid #AAA;
+    border-radius: 2px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    color: #555;
+    font-size: inherit;
+    margin: 0;
+    overflow: hidden;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width:200px
+}
+    </style>   
 </head>
 <!-- END HEAD -->
 <body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-white white-sidebar-color logo-indigo">
@@ -72,84 +93,94 @@ unset( $_SESSION['adminmessage'] );
 	}
 
 ?>  
-                                    <form action="" method=POST id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
+                                    <form action="process_purchase_order.php" method="POST"  class="form-horizontal" enctype="multipart/form-data">
 
-                                         <div class="form-group row">
-                                                <label class="control-label col-md-3">Purchase Order Id
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-5">
-                                                    <input type="number" name="purchase_order_id" placeholder="enter item id" class="form-control input-height" disabled /> </div>
-                                            </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Item Id
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="number" name="item_id" placeholder="enter item id" class="form-control input-height"  /> </div>
-                                            </div>
+
+                                           <?php
+
+    $sql = "SELECT * FROM item";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+
+        echo "<select name='item_id' id='select'>";
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+          echo "<option  value='" . $row['item_id'] . "'>" . $row['item_id'] . "</option>";
+        }
+        echo "</select>";
+    } 
+    $conn->close();
+    ?>
+</div>
+</div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Vendor
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="text" name="vendor" placeholder=" enter vendor" class="form-control input-height" /> </div>
+                                                    <input type="text" name="vendor" placeholder=" enter vendor" class="form-control input-height" required /> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Unit Price
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">     
-                                                <input type="text" name="unit_price" placeholder=" enter unit price" class="form-control input-height" /> </div>
+                                                <input type="text" name="unit_price" placeholder=" enter unit price" class="form-control input-height" required /> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Quantity
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">     
-                                                <input type="number" name="quantity" placeholder=" enter quantity" class="form-control input-height" /> </div>
+                                                <input type="number" name="quantity" placeholder=" enter quantity" class="form-control input-height" required /> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Total
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="number" name="total" placeholder=" enter total" class="form-control input-height"  /> </div>
+                                                    <input type="number" name="total" placeholder=" enter total" class="form-control input-height" required  /> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Amount
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="number" name="amount" placeholder=" enter amount" class="form-control input-height" /> </div>
+                                                    <input type="number" name="amount" placeholder=" enter amount" class="form-control input-height" required /> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">created_date
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">     
-                                                <input type="date" name="created_date" placeholder=" enter created date" class="form-control input-height" /> </div>
+                                                <input type="date" name="created_date" placeholder=" enter created date" class="form-control input-height" required /> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">pre By Name
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">     
-                                                <input type="text" name="pre_by_name" placeholder=" enter prepared by name" class="form-control input-height" /> </div>
+                                                <input type="text" name="pre_by_name" placeholder=" enter prepared by name" class="form-control input-height" required/> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">pre By title
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">     
-                                                <input type="text" name="pre_by_title" placeholder=" enter prepaed by title" class="form-control input-height" /> </div>
+                                                <input type="text" name="pre_by_title" placeholder=" enter prepaed by title" class="form-control input-height"  /> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Appr By Name
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">     
-                                                <input type="text" name="appr_by_name" placeholder=" enter approved by name" class="form-control input-height" /> </div>
+                                                <input type="text" name="appr_by_name" placeholder=" enter approved by name" class="form-control input-height" required /> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Appr By Title
@@ -163,7 +194,7 @@ unset( $_SESSION['adminmessage'] );
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">     
-                                                <input type="text" name="author_by_name" placeholder="author by name" class="form-control input-height" /> </div>
+                                                <input type="text" name="author_by_name" placeholder="author by name" class="form-control input-height" required /> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Author By title
@@ -176,7 +207,7 @@ unset( $_SESSION['adminmessage'] );
 											<div class="form-actions">
                                             <div class="row">
                                                 <div class="offset-md-3 col-md-9">
-                                                    <input type="submit" name="submit" class="btn btn-info">
+                                                    <input type="submit" name="submit" value="register" class="btn btn-info">
                                                     <button type="button" class="btn btn-default">Cancel</button>
                                                 </div>
                                             	</div>
@@ -191,39 +222,6 @@ unset( $_SESSION['adminmessage'] );
             </div>
             <!-- end page content -->
             
-            <?php
-if(isset($_POST['submit'])){
-    $purchase_order_id = $mysqli->escape_string($_POST['purchase_order_id']);
-    $item_id = $mysqli->escape_string($_POST['item_id']);
-    $vendor = $mysqli->escape_string($_POST['vendor']);
-    $unit_price = $mysqli->escape_string($_POST['unit_price']);
-    $quantity = $mysqli->escape_string($_POST['quantity']);
-    $total = $mysqli->escape_string($_POST['total']);
-    $amount = $mysqli->escape_string($_POST['amount']);
-    $created_date = $mysqli->escape_string($_POST['created_date']);
-    $pre_by_name = $mysqli->escape_string($_POST['pre_by_name']);
-    $pre_by_title = $mysqli->escape_string($_POST['pre_by_title']);
-    $appr_by_name = $mysqli->escape_string($_POST['appr_by_name']);
-    $appr_by_title = $mysqli->escape_string($_POST['appr_by_title']);
-    $author_by_name = $mysqli->escape_string($_POST['author_by_name']);
-    $author_by_title = $mysqli->escape_string($_POST['author_by_title']); 
-
-	
-// active is 0 by DEFAULT (no need to include it here)
-    $sql = "INSERT INTO purchase_order (purchase_order_id, item_id, vendor, unit_price, quantity, total, amount, created_date, pre_by_name, pre_by_title, appr_by_name, appr_by_title, author_by_name, author_by_title) " 
-            . "VALUES (''$purchase_order_id',$vendor','$unit_price','$quantity','$total','$amount','$created_date','$pre_by_name','$pre_by_title','$appr_by_name','$appr_by_title','$author_by_name','$author_by_title')";
-  echo $sql;
-}
-
-
-if ( $mysqli->query($sql) ){
-
-    echo "Successfully.";
-}
-else{
-    echo "Something went wrong. Please try again later.";
-}
-?>
         <!-- end page container -->
         <!-- start footer -->
        <?php include("footer.php")?>

@@ -67,16 +67,8 @@
                                                           						
                                 <div class="card-body" id="bar-parent">
 
-                                    <form action="" method=POST id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
+                                    <form action="process_user.php" method=POST class="form-horizontal" enctype="multipart/form-data" >
                                         <div class="form-body">
-                                        <div class="form-group row">
-                                                <label class="control-label col-md-3">Id
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-5">
-                                                    <input type="number" name="id" placeholder="enter user id" class="form-control input-height" required disabled/> </div>
-                                           
-										   </div>
                                         <div class="form-group row">
                                                 <label class="control-label col-md-3">User Name
                                                     <span class="required"> * </span>
@@ -90,7 +82,7 @@
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="text" name="password" placeholder="enter user password" class="form-control input-height" /> </div>
+                                                    <input type="text" name="password" placeholder="enter user password" class="form-control input-height" required /> </div>
                                          
 											</div>
                                             <div class="form-group row">
@@ -127,7 +119,7 @@
 											<div class="form-actions">
                                             <div class="row">
                                                 <div class="offset-md-3 col-md-9">
-                                                    <input type="submit" name="submit" class="btn btn-info">
+                                                    <input type="submit" name="submit" value="register" class="btn btn-info">
                                                     <button type="button" class="btn btn-default">Cancel</button>
                                                 </div>
                                             	</div>
@@ -142,33 +134,6 @@
             </div>
             <!-- end page content -->
             
-          <?php
-if(isset($_POST['submit'])){
-	
-$id = $mysqli->escape_string($_POST['id']);
-$user_name = $mysqli->escape_string($_POST['user_name']);
-$password = $mysqli->escape_string($_POST['password']);
-$full_name = $mysqli->escape_string($_POST['full_name']);
-$department = $mysqli->escape_string($_POST['department']);
-$phone = $mysqli->escape_string($_POST['phone']);
-$address = $mysqli->escape_string($_POST['address']);
-
-	
-// active is 0 by DEFAULT (no need to include it here)
-    $sql = "INSERT INTO user (id, user_name, password, full_name,	department,	phone, address) " 
-            . "VALUES ('$id','$user_name','$password','$full_name','$department','$phone','$address')";
-
-}
-
-
-if ( $mysqli->query($sql) ){
-
-    echo "Successfully.";
-}
-else{
-    echo "Something went wrong. Please try again later.";
-}
-?>
         <!-- end page container -->
         <!-- start footer -->
        <?php include("footer.php")?>

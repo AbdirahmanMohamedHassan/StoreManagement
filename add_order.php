@@ -30,6 +30,28 @@
 	<link href="assets/css/theme/light/theme-color.css" rel="stylesheet" type="text/css" />
 	<!-- favicon -->
 	<link rel="shortcut icon" href="http://radixtouch.in/templates/admin/smart/source/assets/img/favicon.ico" /> 
+
+    <style >
+    select {
+
+    background-color: white; /* fallback color if gradients are not supported */
+      background-position: center right;
+    background-repeat: no-repeat;
+    border: 1px solid #AAA;
+    border-radius: 2px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    color: #555;
+    font-size: inherit;
+    margin: 0;
+    overflow: hidden;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width:200px
+}
+    </style>   
+
 </head>
 <!-- END HEAD -->
 <body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-white white-sidebar-color logo-indigo">
@@ -72,16 +94,8 @@ unset( $_SESSION['adminmessage'] );
 	}
 
 ?>  
-                                    <form action="" method=POST id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
+                                    <form action="process_order.php" method="POST" class="form-horizontal" enctype="multipart/form-data">
                                         <div class="form-body">
-                                        <div class="form-group row">
-                                                <label class="control-label col-md-3">Id
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-5">
-                                                    <input type="text" name="order_id" placeholder="enter order name" class="form-control input-height" disabled required/> </div>
-                                           
-										   </div>
                                         <div class="form-group row">
                                                 <label class="control-label col-md-3">Number
                                                     <span class="required"> * </span>
@@ -95,15 +109,30 @@ unset( $_SESSION['adminmessage'] );
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="text" name="purchase_order_id" placeholder="enter order name" class="form-control input-height" required/> </div>
-                                           
-										   </div>
+                                           <?php
+
+    $sql = "SELECT * FROM purchase_order";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+
+        echo "<select name='purchase_order_id' id='select'>";
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+          echo "<option  value='" . $row['purchase_order_id'] . "'>" . $row['purchase_order_id'] . "</option>";
+        }
+        echo "</select>";
+    } 
+    $conn->close();
+    ?>
+</div>
+</div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Creation Date
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="date" name="creation_date" placeholder="enter order date" class="form-control input-height" /> </div>
+                                                    <input type="date" name="creation_date" placeholder="enter order date" class="form-control input-height" required /> </div>
                                          
 											</div>
 											</div>
@@ -119,7 +148,7 @@ unset( $_SESSION['adminmessage'] );
 											<div class="form-actions">
                                             <div class="row">
                                                 <div class="offset-md-3 col-md-9">
-                                                    <input type="submit" name="submit" class="btn btn-info">
+                                                    <input type="submit" name="submit" value="register" class="btn btn-info">
                                                     <button type="button" class="btn btn-default">Cancel</button>
                                                 </div>
                                             	</div>
@@ -134,31 +163,7 @@ unset( $_SESSION['adminmessage'] );
             </div>
             <!-- end page content -->
             
-            <?php
-if(isset($_POST['submit'])){
-	
-$id = $mysqli->escape_string($_POST['order_id']);
-$number = $mysqli->escape_string($_POST['number']);
-$purchase_order_id = $mysqli->escape_string($_POST['purchase_order_id']);
-$creation_date = $mysqli->escape_string($_POST['creation_date']);
-$description = $mysqli->escape_string($_POST['description']);
 
-	
-// active is 0 by DEFAULT (no need to include it here)
-    $sql = "INSERT INTO orderr (order_id,number,purchase_order_id,creation_date, description) " 
-            . "VALUES ('$id','$number','$purchase_order_id','$creation_date','$description')";
-echo $sql;
-}
-
-
-if ( $mysqli->query($sql) ){
-
-    echo "Successfully.";
-}
-else{
-    echo "Something went wrong. Please try again later.";
-}
-?>
         <!-- end page container -->
         <!-- start footer -->
        <?php include("footer.php")?>

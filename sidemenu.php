@@ -68,6 +68,13 @@
 	                            </a>
 	                        
 	                        </li>
+							<li class="nav-item start ">
+	                            <a href="report_main.php" class="nav-link nav-toggle">
+	                                <i class="material-icons">report</i>
+	                                <span class="title">Reports</span>
+	                            </a>
+	                        
+	                        </li>
 
 							
 							   

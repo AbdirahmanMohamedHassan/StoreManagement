@@ -70,7 +70,13 @@
                             <div class="card card-box">
                                 							
                                 <div class="card-body" id="bar-parent">
-                                    <form action="" method=POST id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
+                                <?php 
+   if( isset($_SESSION['adminmessage']) AND !empty($_SESSION['adminmessage']) ){
+        echo $_SESSION['adminmessage'];  
+unset( $_SESSION['adminmessage'] );		
+	}
+?>
+                                    <form action="process_item.php" method=POST id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
                                         <div class="form-body">
 								 <?php
 
@@ -88,7 +94,7 @@ $result = $conn->query($sql);
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="number" name="item_id" value="<?php echo$row["item_id"] ?>" class="form-control input-height" disabled  /> </div>
+                                                    <input type="hidden" name="item_id" value="<?php echo$row["item_id"] ?>" class="form-control input-height" /> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Name
@@ -109,7 +115,7 @@ $result = $conn->query($sql);
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">     
-                                                <input type="number" name="category_id" value="<?php echo$row["category_id"] ?>" class="form-control input-height" /> </div>
+                                                <input type="number" name="category_id" value="<?php echo$row["category_id"] ?>" class="form-control input-height"  /> </div>
                                             </div>
 											  <div class="form-group row">
                                                 <label class="control-label col-md-3">Description
@@ -122,7 +128,7 @@ $result = $conn->query($sql);
 											<div class="form-actions">
                                             <div class="row">
                                                 <div class="offset-md-3 col-md-9">
-                                                    <input type="submit" name="submit" class="btn btn-info">
+                                                    <input type="submit" name="submit"value="update" class="btn btn-info">
                                                     <button type="button" class="btn btn-default">Cancel</button>
                                                 </div>
                                             	</div>
@@ -136,31 +142,6 @@ $result = $conn->query($sql);
                         </div>
                     </div>
                 </div>
-                <?php
-if(isset($_POST['submit'])){
-	
-	
-    $id = $mysqli->escape_string($_POST['item_id']);
-    $name = $mysqli->escape_string($_POST['name']);
-    $category = $mysqli->escape_string($_POST['category_id']);
-    $quantity = $mysqli->escape_string($_POST['quantity']);
-    $description = $mysqli->escape_string($_POST['description']);
-
-// active is 0 by DEFAULT (no need to include it here)
-    $sql = "UPDATE item SET item_id='$id',name= '$name' ,quantity='$quantity',description='$description',category_id='$category' WHERE item_id = '$_GET[item_id]'";
-    // Add user to the database
-    echo $sql;
-}
-    if ( $mysqli->query($sql) ){
-
-        echo"Records created successfully.";
-   }
-   else{
-       echo "Something went wrong. Please try again later.";
-   }
-
-
-?>
             </div>
             <!-- end page content -->
 

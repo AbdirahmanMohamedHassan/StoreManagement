@@ -1,5 +1,8 @@
-<?php require 'db.php'; ?>
-
+<?php 
+require 'db.php';
+  session_start(); 
+  
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- BEGIN HEAD -->
@@ -30,7 +33,20 @@
     <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
 	<link href="assets/css/theme/light/theme-color.css" rel="stylesheet" type="text/css" />
 	<!-- favicon -->
-    <link rel="shortcut icon" href="http://radixtouch.in/templates/admin/smart/source/assets/img/favicon.ico" /> 
+	<link rel="shortcut icon" href="http://radixtouch.in/templates/admin/smart/source/assets/img/favicon.ico" /> 
+	<script>
+    function deleletconfig(){
+
+    var del=confirm("Are you sure you want to delete this record?");
+    if (del==true){
+       alert ("One row is deleted")
+    }else{
+        alert("Record Not Deleted")
+    }
+    return del;
+    }
+</script>
+
 </head>
 <!-- END HEAD -->
 <body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-white white-sidebar-color logo-indigo">
@@ -137,7 +153,7 @@
 															
 																				<i > <a href="edit_category.php?category_id=<?php echo$row["category_id"] ?>"><button type="button" href="edit_item.php" class="fa fa-pencil"></button></a>	</i>
 																		<form action="" method=POST>
-																		<button class="btn btn-danger btn-xs" value="<?php echo $row["category_id"] ?>" type="submit"  name="delete">
+																		<button class="btn btn-danger btn-xs" value="<?php echo $row["category_id"] ?>" type="submit"  name="delete" onclick="return deleletconfig();">
 																		
 																			<i class="fa fa-trash-o "></i>
 																		</button>
@@ -147,17 +163,10 @@
 																<?php }}else if ($result->num_rows == 0) {echo "<center><h2>no items a valiabe</h2></center>";}?>
 																<?php if(isset($_POST['delete'])){
 										$id = $mysqli->escape_string($_POST['delete']);
-	
-	$result = $mysqli->query("SELECT * FROM item WHERE category_id='$id'") or die($mysqli->error());
 
 $sql = "delete from category WHERE category_id='$id' ";						
 
    if ( $mysqli->query($sql) ){
-		 echo "successfuly deleted";
-	}
-else {
-
-echo "not deleted";
     }
 	
 										}?>

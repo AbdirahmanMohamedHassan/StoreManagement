@@ -70,7 +70,7 @@
                             <div class="card card-box">
                                 							
                                 <div class="card-body" id="bar-parent">
-                                    <form action="" method=POST id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
+                                    <form action="process_order.php" method="POST" id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
                                         <div class="form-body">
 								 <?php
 
@@ -88,7 +88,7 @@ $result = $conn->query($sql);
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="number" name="order_id" value="<?php echo$row["order_id"] ?>" class="form-control input-height"  disabled /> </div>
+                                                    <input type="number" name="order_id" value="<?php echo$row["order_id"] ?>" class="form-control input-height"   /> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Number
@@ -102,7 +102,7 @@ $result = $conn->query($sql);
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="number" name="purchase_order_id" value="<?php echo$row["purchase_order_id"] ?>" class="form-control input-height" /> </div>
+                                                    <input type="number" name="purchase_order_id" value="<?php echo$row["purchase_order_id"] ?>" class="form-control input-height"  /> </div>
                                             </div>
                                         
                                             <div class="form-group row">
@@ -123,7 +123,7 @@ $result = $conn->query($sql);
 											<div class="form-actions">
                                             <div class="row">
                                                 <div class="offset-md-3 col-md-9">
-                                                    <input type="submit" name="submit" class="btn btn-info">
+                                                    <input type="submit" name="submit" value="update" class="btn btn-info">
                                                     <button type="button" class="btn btn-default">Cancel</button>
                                                 </div>
                                             	</div>
@@ -137,32 +137,7 @@ $result = $conn->query($sql);
                         </div>
                     </div>
                 </div>
-                <?php
-if(isset($_POST['submit'])){
-	
-	
-    $id = $mysqli->escape_string($_POST['order_id']);
-    $number = $mysqli->escape_string($_POST['number']);
-    $purchase_order_id = $mysqli->escape_string($_POST['purchase_order_id']);
-    $creation_date = $mysqli->escape_string($_POST['creation_date']);
-    $description = $mysqli->escape_string($_POST['description']);
-    
 
-// active is 0 by DEFAULT (no need to include it here)
-    $sql = "UPDATE orderr SET order_id='$id',number= '$number' ,purchase_order_id='$purchase_order_id',creation_date='$creation_date',description='$description' WHERE order_id = '$_GET[order_id]'";
-    // Add user to the database
-    echo $sql;
-}
-    if ( $mysqli->query($sql) ){
-
-        echo"Records created successfully.";
-   }
-   else{
-       echo "Something went wrong. Please try again later.";
-   }
-
-
-?>
             </div>
             <!-- end page content -->
 

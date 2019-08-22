@@ -1,4 +1,6 @@
 <?php require 'db.php'; ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <!-- BEGIN HEAD -->
@@ -66,16 +68,8 @@
                                                           						
                                 <div class="card-body" id="bar-parent">
  
-                                    <form action="" method=POST id="form_sample_1" class="form-horizontal" enctype="multipart/form-data">
+                                    <form action="process_category.php" method=POST  class="form-horizontal" enctype="multipart/form-data">
                                         <div class="form-body">
-                                        <div class="form-group row">
-                                                <label class="control-label col-md-3">Id
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-5">
-                                                    <input type="text" name="category_id"  class="form-control input-height" disabled required/> </div>
-                                           
-										   </div>
                                         <div class="form-group row">
                                                 <label class="control-label col-md-3">Name
                                                     <span class="required"> * </span>
@@ -89,7 +83,7 @@
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
-                                                    <input type="text" name="type" placeholder="enter category type " class="form-control input-height" /> </div>
+                                                    <input type="text" name="type" placeholder="enter category type " class="form-control input-height" required/> </div>
                                          
 											</div>
                                             
@@ -106,7 +100,7 @@
 											<div class="form-actions">
                                             <div class="row">
                                                 <div class="offset-md-3 col-md-9">
-                                                    <input type="submit" name="submit" class="btn btn-info">
+                                                    <input type="submit" name="submit" value="register"  class="btn btn-info">
                                                     <button type="button" class="btn btn-default">Cancel</button>
                                                 </div>
                                             	</div>
@@ -122,30 +116,7 @@
             <!-- end page content -->
             
           
-            <?php
-if(isset($_POST['submit'])){
-	
-    $id = $mysqli->escape_string($_POST['category_id']);
-    $name = $mysqli->escape_string($_POST['name']);
-    $type = $mysqli->escape_string($_POST['type']);
-    $description = $mysqli->escape_string($_POST['description']);
 
-// active is 0 by DEFAULT (no need to include it here)
-    $sql = "INSERT INTO category (category_id,name,type,description)" 
-            . "VALUES ('$id','$name','$type','$description')";
-            echo $sql;
-
-}
-
-
-if ( $mysqli->query($sql) ){
-
-    echo "Successfully.";
-}
-else{
-    echo "Something went wrong. Please try again later.";
-}
-?>
         <!-- end page container -->
         <!-- start footer -->
        <?php include("footer.php")?>
