@@ -1,3 +1,13 @@
+<?php require_once('db.php'); ?>
+<?php 
+session_start();
+if(!isset($_SESSION['Login_status'])){
+					header('location:login.php');
+}
+else{
+    
+?>
+
 <?php require 'db.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -101,6 +111,13 @@ $result = $conn->query($sql);
                                                 </label>
                                                 <div class="col-md-5">
                                                     <input type="text" name="vendor" value="<?php echo$row["vendor"] ?>" class="form-control input-height" /> </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-md-3">Unit Price
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">
+                                                    <input type="text" name="unit_price" value="<?php echo$row["vendor"] ?>" class="form-control input-height" /> </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">created_date
@@ -218,3 +235,5 @@ $result = $conn->query($sql);
      <!-- end js include path -->
 </body>
 </html>
+
+<?php } ?>

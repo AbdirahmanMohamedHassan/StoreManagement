@@ -1,10 +1,12 @@
-
+<?php require_once('db.php'); ?>
 <?php 
-require 'db.php';
-  session_start(); 
-
-  
-  ?>
+session_start();
+if(!isset($_SESSION['Login_status'])){
+					header('location:login.php');
+}
+else{
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- BEGIN HEAD -->
@@ -147,9 +149,9 @@ require 'db.php';
 					                                        <tbody>
 															<?php
 						
-						$sql = "SELECT  `vendor`,  `quantity`,, `created_date`, `pre_by_name`, `pre_by_title`, `appr_by_name`, `appr_by_title`, `author_by_name`, `author_by_title`, `item_id` FROM `purchase_order`";
+						$sql = "SELECT  `vendor`,  `quantity`,`created_date`, `pre_by_name`, `pre_by_title`, `appr_by_name`, `appr_by_title`, `author_by_name`, `author_by_title`, `item_id`, purchase_order_id FROM `purchase_order` ";
 						$result = $conn->query($sql);
-						if ($result > 0) {
+						if ($result->num_rows > 0) {
 							while($row = $result->fetch_assoc()) {
 						?>
 																<tr class="odd gradeX">
@@ -175,7 +177,7 @@ require 'db.php';
 																		</form>
 																	</td>
 																</tr>
-																<?php }}else if ($result == 0) {echo "<center><h2>no items a valiabe</h2></center>";}?>
+																<?php }}else if ($result->num_rows == 0) {echo "<center><h2>no items a valiabe</h2></center>";}?>
 																<?php if(isset($_POST['delete'])){
 										$id = $mysqli->escape_string($_POST['delete']);
 $sql = "delete from item WHERE purchase_order_id='$id'";						
@@ -228,3 +230,4 @@ $sql = "delete from item WHERE purchase_order_id='$id'";
      <!-- end js include path -->
 </body>
 </html>
+<?php } ?>

@@ -1,10 +1,13 @@
-
+<?php require_once('db.php'); ?>
 <?php 
-require 'db.php';
-  session_start(); 
+session_start();
+if(!isset($_SESSION['Login_status'])){
+					header('location:login.php');
+}
+else{
+    
+?>
 
-  
-  ?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- BEGIN HEAD -->
@@ -147,7 +150,7 @@ require 'db.php';
 					                                        <tbody>
 						<?php
 																
-						$sql = "SELECT id, item_id, quantity, department, created_date, requested_by, approved_by, approved_date, occupation FROM store_request";
+						$sql = "SELECT id, item_id, quantity, department, created_date, requested_by, approved_by, approved_date, occupation FROM store_request ORDER BY ID DESC";
 						$result = $conn->query($sql);
 						if ($result->num_rows > 0) {
 							$i=1;
@@ -225,3 +228,4 @@ if ( $mysqli->query($sql) ){
      <!-- end js include path -->
 </body>
 </html>
+<?php } ?>

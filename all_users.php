@@ -1,11 +1,13 @@
 
-
+<?php require_once('db.php'); ?>
 <?php 
-require 'db.php';
-  session_start(); 
-
-  
-  ?>
+session_start();
+if(!isset($_SESSION['Login_status'])){
+					header('location:login.php');
+}
+else{
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- BEGIN HEAD -->
@@ -226,3 +228,5 @@ $sql = "delete from user WHERE id='$id' ";
      <!-- end js include path -->
 </body>
 </html>
+
+<?php } ?>

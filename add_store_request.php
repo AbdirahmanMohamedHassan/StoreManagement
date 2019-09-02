@@ -1,5 +1,11 @@
-<?php require 'db.php'; 
-
+<?php require_once('db.php'); ?>
+<?php 
+session_start();
+if(!isset($_SESSION['Login_status'])){
+					header('location:login.php');
+}
+else{
+    
 ?>
 
 <!DOCTYPE html>
@@ -53,6 +59,11 @@
     width:200px
 }
     </style>   
+     <script>
+        function ItemQuantity(d){
+            window.location.href='?item_id='+d.value;
+        }
+     </script>
 
 </head>
 <!-- END HEAD -->
@@ -102,13 +113,18 @@
 
     if ($result->num_rows > 0) {
 
-        echo "<select name='item_id' id='select'>";
-        // output data of each row
+        echo "<select name='item_id' id='select' onchange='ItemQuantity(this)'>";
+           // output data of each row
         while($row = $result->fetch_assoc()) {
           echo "<option  value='" . $row['item_id'] . "'>" . $row['item_id'] . "</option>";
         }
         echo "</select>";
+
+        
+        
+
     } 
+   
     $conn->close();
     ?>
 </div>
@@ -213,3 +229,5 @@
      <!-- end js include path -->
 </body>
 </html>
+
+<?php } ?>

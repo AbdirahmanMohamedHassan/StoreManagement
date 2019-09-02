@@ -1,14 +1,5 @@
 <?php 
  include_once('db.php');
- $id=$_POST['emp_id'];	
- $startDate = $_POST['StartDate'];
- $endDate = $_POST['EndDate'];
- 
- 
- 
- 
- 
- 
   ?>
 <!DOCTYPE html>
 <html>

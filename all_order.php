@@ -1,10 +1,12 @@
-
+<?php require_once('db.php'); ?>
 <?php 
-require 'db.php';
-  session_start(); 
-
-  
-  ?>
+session_start();
+if(!isset($_SESSION['Login_status'])){
+					header('location:login.php');
+}
+else{
+    
+?>
   <html lang="en">
 <!-- BEGIN HEAD -->
 <head>
@@ -206,3 +208,4 @@ $sql = "delete from orderr WHERE order_id='$id' ";
      <!-- end js include path -->
 </body>
 </html>
+<?php } ?>

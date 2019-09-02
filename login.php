@@ -1,6 +1,6 @@
 <?php 
-
-session_start();
+session_start(); ?>
+<?php
 include ("db.php");
 
 
@@ -17,7 +17,7 @@ if(!empty($userName) || !empty($Password)){
 $row = mysqli_num_rows($sql);
 if ($row ==1) {
   
-  $_SESSION['check_user'] = $userName;
+  $_SESSION['Login_status']=$userName;
   header('location: index.php');
 }
 

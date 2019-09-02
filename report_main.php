@@ -1,5 +1,11 @@
-<?php require 'db.php'; 
-
+<?php require_once('db.php'); ?>
+<?php 
+session_start();
+if(!isset($_SESSION['Login_status'])){
+					header('location:login.php');
+}
+else{
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,7 +58,7 @@
             <div class="page-content-wrapper">
                 <div class="page-content">
                     <div class="page-bar">
-                     <h2 style="margin:0px 0px 0px 0px; text-align:center; font-weight: 900;"> ALL The Store Reports </h2>
+                     <h2 style="margin:0px 0px 0px 0px; text-align:center; font-weight: 900;"> Store Reports </h2>
                           <div class="card text-white bg-primary mb-4 col-md-4" style="width: 378px; margin:0px 20px 0px 2px; display:inline-block;">
                                <div class="card-header">Items Report</div>
                                  <div class="card-body">
@@ -162,3 +168,5 @@
      <!-- end js include path -->
 </body>
 </html>
+
+<?php } ?>

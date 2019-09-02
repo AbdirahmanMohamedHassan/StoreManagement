@@ -1,5 +1,11 @@
-<?php require 'db.php'; 
-
+<?php require_once('db.php'); ?>
+<?php 
+session_start();
+if(!isset($_SESSION['Login_status'])){
+					header('location:login.php');
+}
+else{
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -171,3 +177,5 @@ $result = $conn->query($sql);
      <!-- end js include path -->
 </body>
 </html>
+
+<?php } ?>

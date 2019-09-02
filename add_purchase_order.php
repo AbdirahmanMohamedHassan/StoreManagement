@@ -1,4 +1,12 @@
-<?php require 'db.php'; ?>
+<?php require_once('db.php'); ?>
+<?php 
+session_start();
+if(!isset($_SESSION['Login_status'])){
+					header('location:login.php');
+}
+else{
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- BEGIN HEAD -->
@@ -249,3 +257,4 @@ unset( $_SESSION['adminmessage'] );
      <!-- end js include path -->
 </body>
 </html>
+<?php } ?>

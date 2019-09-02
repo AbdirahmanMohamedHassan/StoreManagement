@@ -1,9 +1,12 @@
-<?php
+<?php require_once('db.php'); ?>
+<?php 
 session_start();
-//include_once('functions/functions.php');
-include 'db.php'; 
-
-  ?>
+if(!isset($_SESSION['Login_status'])){
+					header('location:login.php');
+}
+else{
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- BEGIN HEAD -->
@@ -259,3 +262,4 @@ include 'db.php';
     <!-- end js include path -->
   </body>
 </html>
+<?php } ?>

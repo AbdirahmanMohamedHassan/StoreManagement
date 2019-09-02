@@ -43,9 +43,8 @@ if($_POST['submit']=='register'):
 
     if($total<0)
     {
-        echo "Don't request";
-    }
-    else{
+        die("Item Quantity is too small ".mysqli_error($conn));
+    }else{
 // active is 0 by DEFAULT (no need to include it here)
     $query= "INSERT INTO store_request(item_id, quantity, department, created_date, requested_by, approved_date, approved_by, occupation)"
     . "VALUES ('$item_id','$quantity','$department','$created_date','$requested_by','$approved_date','$approved_by','$occupation')";
@@ -55,7 +54,7 @@ if($_POST['submit']=='register'):
     //echo $total;  
         $up = "UPDATE item set quantity ='$total' where item_id ='$item_id'";
         $res = mysqli_query($conn ,$up);
-        echo $up;
+
         if(!$r){
             die(" failed to insert row ".mysqli_error($conn));
         }
@@ -63,6 +62,6 @@ if($_POST['submit']=='register'):
     
        
           mysqli_close($conn); 
-         //header('location: all_store_request.php');
+         header('location: all_store_request.php');
         endif;
 ?>

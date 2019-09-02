@@ -1,7 +1,12 @@
+<?php require_once('db.php'); ?>
 <?php 
- include_once('db.php');
- ?>
-
+session_start();
+if(!isset($_SESSION['Login_status'])){
+					header('location:login.php');
+}
+else{
+    
+?>
 <!DOCTYPE html>
 <html>
 
@@ -154,3 +159,5 @@ while ($row= mysqli_fetch_array($sql)) {
 </form>
 </body>
 </html>
+
+<?php } ?>
